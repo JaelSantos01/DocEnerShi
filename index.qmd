@@ -11,7 +11,17 @@ editor: source
 ::: {.content-block}
 ::: {.hero-text}
 # Ener-Habitat {.mt-1}
-![](images/enerhabitat.png){.hello-output fig-alt="Example Jupyter notebook entitled Palmer Penguins with code cells, text, and a scatterplot."}
+
+::: {.enerhabitat}
+
+
+Anteriormente Ener-Habitat fue desarrollada con distintos leguajes conocidos, como: JavaScript, MySQL, Html y Jsp.
+Dicho sistema terminó fallando con el pasar del tiempo debido a su gran cantidad de usuarios que se registraban, al igual que se generó una saturación de información. 
+::: {.image}
+![](images/enerhabitat.png){.hello-output fig-alt="Image enerhabitat before"}
+:::
+:::
+
 ![](images/enerShi.png){.hello-output fig-alt="Example Jupyter notebook entitled Palmer Penguins with code cells, text, and a scatterplot."}
 
 ::: {.hero-buttons}
