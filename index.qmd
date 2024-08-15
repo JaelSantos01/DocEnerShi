@@ -8,28 +8,37 @@ editor: source
 ---
 
 ::: {.hero-banner}
-::: {.content-block}
-::: {.hero-text}
+
 # Ener-Habitat {.mt-1}
 
-::: {.enerhabitat}
+::: {.container}
 
-
-Anteriormente Ener-Habitat fue desarrollada con distintos leguajes conocidos, como: JavaScript, MySQL, Html y Jsp.
-Dicho sistema terminó fallando con el pasar del tiempo debido a su gran cantidad de usuarios que se registraban, al igual que se generó una saturación de información. 
-::: {.image}
+::: {.imageE}
 ![](images/enerhabitat.png){.hello-output fig-alt="Image enerhabitat before"}
 :::
+
+::: {.enerhabitat}
+Anteriormente Ener-Habitat fue desarrollada con distintos leguajes conocidos, como: JavaScript, MySQL, Html y Jsp.
+Dicho sistema terminó fallando con el pasar del tiempo debido a su gran cantidad de usuarios que se registraban, al igual que se generó una saturación de información.
+:::
 :::
 
-![](images/enerShi.png){.hello-output fig-alt="Example Jupyter notebook entitled Palmer Penguins with code cells, text, and a scatterplot."}
+::: {.container2}
+
+::: {.enerShi}
+Actualmente se renovo el sistema con una interfaz grafica mejorada al igual que el rendimiento, sin necesidad de registrarse. 
+Libre para cualquier usuario, utilizando diferentes herramientas para su desarrollo como Shiny para Python, Plotly para el diseno de las graficas.
+:::
+
+:::  {.imageP}
+![](images/enerShi.png){.hello-output fig-alt="Image enerhabitat after."}
+:::
+:::
 
 ::: {.hero-buttons}
 [Empezar](/docs/get-started/index.qmd){.btn-action-primary .btn-action .btn .btn-success .btn-lg role="button"}
 
 ::: 
 
-:::
-:::
 :::
 
