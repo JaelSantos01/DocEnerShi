@@ -1,0 +1,38 @@
+---
+  pagetitle: "EnerHabitat"
+---
+
+# Desarrollo de Ener-Habitat {.unnumbered}
+
+Este sistema fue desarrollado con la herramienta de Shiny con un enfoque para Python, y a continuación se mostraran las funciones que se utilizaron y la explicación de cada una de ellas.
+
+
+````markdown
+---
+title: "observable plot"
+author: "Norah Jones"
+format: 
+  html: 
+    code-fold: true
+---
+
+## Seattle Precipitation by Day (2012 to 2016)
+
+```{{ojs}}
+data = FileAttachment("seattle-weather.csv")
+  .csv({typed: true})
+  
+Plot.plot({
+  width: 800, height: 500, padding: 0,
+  color: { scheme: "blues", type: "sqrt"},
+  y: { tickFormat: i => "JFMAMJJASOND"[i] },
+  marks: [
+    Plot.cell(data, Plot.group({fill: "mean"}, {
+      x: d => new Date(d.date).getDate(),
+      y: d => new Date(d.date).getMonth(),
+      fill: "precipitation", 
+      inset: 0.5
+    }))
+  ]
+})
+````

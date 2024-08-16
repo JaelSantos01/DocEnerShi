@@ -63,3 +63,44 @@
   background: rgb(18, 18, 99);
   color: rgb(255, 255, 255) !important;
 }
+
+.enerBefore{
+  padding: 1rem;
+}
+
+.enerB{
+  display: flex;
+  justify-content: center;
+}
+
+.enerB p{
+  padding: 1rem;
+  margin-right: 2rem;
+  justify-content: center;
+  text-align: justify;
+}
+
+.enerB video{
+  width: 55%;
+}
+
+.enerAfter{
+  margin-left: 2rem;
+}
+
+.enerA{
+  display: flex;
+  justify-content: center;
+}
+
+.enerA p{
+  padding: 1rem;
+  margin-left: 2rem;
+  justify-content: center;
+  text-align: justify;
+}
+
+.enerA video{
+  width: 55%;
+  justify-content: left;
+}

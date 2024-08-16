@@ -12,5 +12,22 @@
     "title": "About",
     "section": "",
     "text": "About this site"
+  },
+  {
+    "objectID": "docs/index.html",
+    "href": "docs/index.html",
+    "title": "Desarrollo de Ener-Habitat",
+    "section": "",
+    "text": "Desarrollo de Ener-Habitat\nEste sistema fue desarrollado con la herramienta de Shiny con un enfoque para Python, y a continuación se mostraran las funciones que se utilizaron y la explicación de cada una de ellas.\n---\ntitle: \"observable plot\"\nauthor: \"Norah Jones\"\nformat: \n  html: \n    code-fold: true\n---\n\n## Seattle Precipitation by Day (2012 to 2016)\n\n```{ojs}\ndata = FileAttachment(\"seattle-weather.csv\")\n  .csv({typed: true})\n  \nPlot.plot({\n  width: 800, height: 500, padding: 0,\n  color: { scheme: \"blues\", type: \"sqrt\"},\n  y: { tickFormat: i =&gt; \"JFMAMJJASOND\"[i] },\n  marks: [\n    Plot.cell(data, Plot.group({fill: \"mean\"}, {\n      x: d =&gt; new Date(d.date).getDate(),\n      y: d =&gt; new Date(d.date).getMonth(),\n      fill: \"precipitation\", \n      inset: 0.5\n    }))\n  ]\n})",
+    "crumbs": [
+      "Desarrollo de Ener-Habitat"
+    ]
+  },
+  {
+    "objectID": "docs/index.html#qué-aprenderás",
+    "href": "docs/index.html#qué-aprenderás",
+    "title": "Bienvenida",
+    "section": "",
+    "text": "El curso está organizado por cuatro grandes temas o semanas y un proyecto final, que son:\n\nInstalación y prácticas avanzadas:\nExploración avanzada de datos\nPandas avanzado\nNuevas herramientas en la ciencia de datos\nProyecto final"
   }
 ]

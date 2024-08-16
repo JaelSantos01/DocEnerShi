@@ -23,7 +23,57 @@ requiere ser actualizada.
 
 ::: {.hero-buttons}
 [Empezar](/docs/index.qmd){.btn-action-primary .btn-action .btn .btn-success .btn-lg role="button"}
-
-::: 
 :::
 
+:::
+
+:::
+:::
+
+
+
+::: {.container}
+
+::: {.enerBefore}
+
+# Ener-Habitat, Before
+
+:::
+
+::: {.enerB}
+
+En este trabajo se presenta el proceso de migración de Ener-Habitat a Shiny de Python,
+cuidando que todo sea licencia abierta, por lo que la arquitectura de la webapp será liberada y
+el código de Ener-Habitat también. Se desarrolla también la documentación de Ener-Habitat
+con Quarto bajo el mismo esquema.
+
+<video autoplay muted playsinline loop>
+<source src="images/EnerHabitatBefore.mp4" type="video/mp4"/>
+</video>
+
+:::
+
+::: {.enerAfter}
+# Ener-Habitat, After
+
+:::
+
+::: {.enerA}
+
+<video autoplay muted playsinline loop>
+<source src="images/EnerHabitatAfter.mp4" type="video/mp4"/>
+</video>
+
+La nueva versión de Ener-Habitat usa gráficas interactivas, un menú más sencillo y
+responsivo y también elimina la necesidad de registro del usuario. La administración de la
+webapp se hace por medio de archivos .ini lo que facilita agregar nuevos climas agregando un
+archivo EPW. Ener-Habitat resuelve la transferencia de calor en una dimensión dependiente
+del tiempo usando un método implícito y considerando el clima, la orientación del sistema
+constructivo y el color por medio de la temperatura sol-aire.
+Shiny es una plataforma para crear webapps interactivas con principios de programación
+reactiva utilizando únicamente Python o R, ideal para crear proyectos de ciencia de datos y
+tableros interactivos.
+
+:::
+
+:::

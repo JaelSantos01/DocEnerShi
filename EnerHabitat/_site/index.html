@@ -30,6 +30,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
+<link href="./images/logo.jpg" rel="icon" type="image/jpeg">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -51,7 +52,7 @@ ul.task-list li input[type="checkbox"] {
     "/",
     "s"
   ],
-  "show-item-context": false,
+  "show-item-context": true,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -68,7 +69,6 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
 
-<link rel="stylesheet" href="CSS/styles.css">
 <link rel="stylesheet" href="CSS/index.css">
 </head>
 
@@ -76,11 +76,11 @@ ul.task-list li input[type="checkbox"] {
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+    <nav class="navbar navbar-expand-md " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
-    <span class="navbar-title">EnerHabitat</span>
+    <a href="./index.html" class="navbar-brand navbar-brand-logo">
+    <img src="./images/enerhabitat.jpg" alt="EnerHabitat logo." class="navbar-logo">
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -91,15 +91,13 @@ ul.task-list li input[type="checkbox"] {
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
     <a class="nav-link active" href="./index.html" aria-current="page"> 
-<span class="menu-text">Home</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./about.html"> 
-<span class="menu-text">About</span></a>
+<span class="menu-text">Inicio</span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
+    <a href="https://github.com/AltamarMx" title="Learn Python" class="quarto-navigation-tool px-1" aria-label="Learn Python"><i class="bi bi-github"></i></a>
+    <a href="https://shiny.posit.co/py/" title="Página oficial de Shiny" class="quarto-navigation-tool px-1" aria-label="Página oficial de Shiny"><i class="bi bi-shiny"></i></a>
 </div>
       </div> <!-- /container-fluid -->
     </nav>
@@ -118,15 +116,35 @@ ul.task-list li input[type="checkbox"] {
 <section id="ener-habitat" class="mt-1 hero-text">
 <h1 class="mt-1">Ener-Habitat</h1>
 <h3 id="esta-es-la-documentación-de-la-renovación-de-ener-habitat">Esta es la documentación de la renovación de Ener-Habitat</h3>
-<p>Ener-Habitat es una webapp que evalúa el desempeño térmico de muros/techos de la envolvente de una edificación bajo uso y no uso de aire acondicionado para diferentes ubicaciones. Ayuda a seleccionar el mejor sistema constructivo al usar o no aire acondicionado. Ener-Habitat fue creada originalmente en Java hace más de diez años y requiere ser actualizada. ### Analyze. Share. Reproduce. You have a story to tell with data—tell it with Quarto.</p>
+<p>Ener-Habitat es una webapp que evalúa el desempeño térmico de muros/techos de la envolvente de una edificación bajo uso y no uso de aire acondicionado para diferentes ubicaciones. Ayuda a seleccionar el mejor sistema constructivo al usar o no aire acondicionado. Ener-Habitat fue creada originalmente en Java hace más de diez años y requiere ser actualizada.</p>
 <div class="hero-buttons">
 <p><a href="./docs/index.html" class="btn-action-primary btn-action btn btn-success btn-lg" role="button">Empezar</a></p>
 </div>
 </section>
-
-
 </div>
 </div>
+<div class="container">
+<section id="ener-habitat-before" class="enerBefore">
+<h1>Ener-Habitat, Before</h1>
+</section>
+<div class="enerB">
+<p>En este trabajo se presenta el proceso de migración de Ener-Habitat a Shiny de Python, cuidando que todo sea licencia abierta, por lo que la arquitectura de la webapp será liberada y el código de Ener-Habitat también. Se desarrolla también la documentación de Ener-Habitat con Quarto bajo el mismo esquema.</p>
+<video autoplay="" muted="" playsinline="" loop="">
+<source src="images/EnerHabitatBefore.mp4" type="video/mp4">
+</video>
+</div>
+<section id="ener-habitat-after" class="enerAfter">
+<h1>Ener-Habitat, After</h1>
+</section>
+<div class="enerA">
+<video autoplay="" muted="" playsinline="" loop="">
+<source src="images/EnerHabitatAfter.mp4" type="video/mp4">
+</video>
+<p>La nueva versión de Ener-Habitat usa gráficas interactivas, un menú más sencillo y responsivo y también elimina la necesidad de registro del usuario. La administración de la webapp se hace por medio de archivos .ini lo que facilita agregar nuevos climas agregando un archivo EPW. Ener-Habitat resuelve la transferencia de calor en una dimensión dependiente del tiempo usando un método implícito y considerando el clima, la orientación del sistema constructivo y el color por medio de la temperatura sol-aire. Shiny es una plataforma para crear webapps interactivas con principios de programación reactiva utilizando únicamente Python o R, ideal para crear proyectos de ciencia de datos y tableros interactivos.</p>
+</div>
+</div>
+
+
 
 
 <script id="quarto-html-after-body" type="application/javascript">
@@ -550,6 +568,19 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Todos los derechos de autor</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
 
 
 

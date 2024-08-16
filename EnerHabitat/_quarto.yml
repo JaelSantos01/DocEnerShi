@@ -3,17 +3,56 @@ project:
 
 website:
   title: "EnerHabitat"
+  image: "images/enerhabitat.jpg"
+  favicon: "images/logo.jpg"
+  repo-url: https://github.com/AltamarMx
+  page-navigation: true
+  search: 
+    show-item-context: true
+    type: overlay
+  page-footer: 
+    left: |
+      Todos los derechos de autor 
   navbar:
+    background: light
+    logo: images/enerhabitat.jpg
+    logo-alt: "EnerHabitat logo."
+    title: false
+    collapse-below: md
     left:
-      - href: index.qmd
-        text: Home
-      - about.qmd
+      - text: "Inicio"
+        href: index.qmd
+    tools:
+      - icon: github
+        href:  https://github.com/AltamarMx
+        text: Learn Python
+      - icon: shiny
+        href: https://shiny.posit.co/py/
+        text: Página oficial de Shiny
+    
+  sidebar: 
+  - id: get-started
+    text: "Empezar"
+    style: floating
+    collapse-level: 2
+    align: left
+    contents:
+        - docs/index.qmd
+        - text: "Tutorial: Hello, Quarto"
+          href: docs/get-started/hello/
+        - text: "Tutorial: Computations"
+          href: docs/get-started/computations/
+        - text: "Tutorial: Authoring"
+          href: docs/get-started/authoring/
 
 format:
   html:
-    theme: cosmo
-    css: CSS/styles.css
+    light: [cosmo, theme.scss]
     toc: true
+    code-copy: true
+
+freeze: true
+
 
 
 
