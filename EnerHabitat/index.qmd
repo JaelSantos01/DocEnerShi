@@ -1,0 +1,29 @@
+---
+pagetitle: "EnerHabitat"
+page-layout: custom
+section-divs: false
+toc: false
+css: CSS/index.css
+editor: source
+---
+
+::: {.hero-banner}
+::: {.content-block}
+
+::: {.hero-text}
+# Ener-Habitat {.mt-1}
+
+### Esta es la documentación de la renovación de Ener-Habitat 
+
+Ener-Habitat es una webapp que evalúa el desempeño térmico de muros/techos de la
+envolvente de una edificación bajo uso y no uso de aire acondicionado para diferentes
+ubicaciones. Ayuda a seleccionar el mejor sistema constructivo al usar o no aire
+acondicionado. Ener-Habitat fue creada originalmente en Java hace más de diez años y
+requiere ser actualizada.
+
+::: {.hero-buttons}
+[Empezar](/docs/index.qmd){.btn-action-primary .btn-action .btn .btn-success .btn-lg role="button"}
+
+::: 
+:::
+
