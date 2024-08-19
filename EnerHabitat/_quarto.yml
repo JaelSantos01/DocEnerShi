@@ -2,9 +2,9 @@ project:
   type: website
 
 website:
-  title: "EnerHabitat"
+  title: "Doc de Ener-Habitat"
   image: "images/enerhabitat.jpg"
-  favicon: "images/logo.jpg"
+  favicon: "images/logo_edited.png"
   repo-url: https://github.com/AltamarMx
   page-navigation: true
   search: 
@@ -18,7 +18,7 @@ website:
     logo: images/enerhabitat.jpg
     logo-alt: "EnerHabitat logo."
     title: false
-    collapse-below: md
+    collapse-below: xl
     left:
       - text: "Inicio"
         href: index.qmd
@@ -26,9 +26,6 @@ website:
       - icon: github
         href:  https://github.com/AltamarMx
         text: Learn Python
-      - icon: shiny
-        href: https://shiny.posit.co/py/
-        text: Página oficial de Shiny
     
   sidebar: 
   - id: get-started
@@ -38,12 +35,14 @@ website:
     align: left
     contents:
         - docs/index.qmd
-        - text: "Tutorial: Hello, Quarto"
-          href: docs/get-started/hello/
-        - text: "Tutorial: Computations"
-          href: docs/get-started/computations/
-        - text: "Tutorial: Authoring"
-          href: docs/get-started/authoring/
+        - text: "Desarrollo de interfaz"
+          href: docs/interfaz.qmd
+        - text: "Funciones para gráficas"
+          href: docs/graficas.qmd
+        - text: "Funciones para renderizar"
+          href: docs/renderizar.qmd
+        - text: "Base de datos"
+          href: docs/bd.qmd
 
 format:
   html:

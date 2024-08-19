@@ -1,0 +1,82 @@
+---
+    pagetitle: Interfaz
+---
+
+# Desarrollo de la Interfaz
+A continuación explicará el desarrollo de la interfaz de Ener-Habitat:
+
+La declaración de app_ui, sirve para definir la interfaz del usuario, donde se describirá 
+la vista de la aplicación, es decir, los elementos interactivos (botones, gráficas, tablas, etc.) 
+que estarán presentes y como estarán organizados.
+
+
+````markdown
+## Ejemplo para conocer el uso de app_ui
+from Shiny import App, ui, render, reactive 
+
+app_ui = ui.page_fluid("Hello Shiny!")
+
+def server(input, output, session):
+
+app = App(app_ui, server)
+````
+## Parte 1 
+Una vez, explicado el uso de app_ui en Shiny, se comenzará con el desarrollo de la interfaz, declarando 
+una ui.page_sidebar, junto con un acordeón, para generar una barra lateral indicando el nombre del sistema en 
+este caso "Ener-Habitat", y para colocar en el primer acordeón una función que contendrá varios inputs para que el usuario seleccione cada condición con la cual se generará el gráfico de la simulación, dependiendo el tipo de sistema que desee realizar: 
+
+````markdown
+## Parte de la interfaz, que manda a llamar la función "left_controls"
+from Shiny import App, ui, render, reactive 
+
+app_ui = ui.page_sidebar(
+    ui.sidebar(
+        ui.accordion(
+            ui.accordion_panel(
+                "Cambios",
+                ui.output_ui("left_controls"),
+            ),
+        ),
+    )
+)        
+````
+## Parte 2
+Continuando con el desarrollo de la interfaz, se declaró un segundo acordeón que contendrá otra sección de inputs, 
+mostrado cada uno en la función "controls_top", junto con un input selector, para seleccionar el tipo de sistema
+"Con capa homogénea" y/o "Sin capa homogénea" (la cual aún sigue en desarrollo). 
+LLamando a una lista de diccionarios, junto con un input númerico el cual el usuario seleccionará el número de sistemas
+que desea realizar (como minímo 1, de 1 en 1, máximo 5), y por último, un nuevo acordeón que manda a llamar la función 
+"controls_rigth", junto con un botón que contará las simulaciones realizadas. 
+
+````markdown
+## Parte de la interfaz, que manda a llamar la función "controls_top" & "controls_rigth"
+from Shiny import App, ui, render, reactive 
+
+app_ui = ui.page_sidebar(
+    
+    //Código anterior
+
+    ui.accordion(
+        ui.accordion_panel(
+            "Selección",
+            ui.output_ui("controls_top"),
+                ui.input_select(  
+                    "type",  
+                    "Tipo de sistema:",  
+                    choices= list(type_sistem.keys()),  
+                ),
+        ),
+    ),
+    ui.input_numeric("sistemas", "Número de sistemas:", value=1, min=1, max=5),  
+    ui.accordion(
+        ui.accordion_panel(
+            "Datos",
+            ui.output_ui("controls_rigth")
+        )
+    ),
+    ui.input_action_button("update", "correr"),
+),        
+````
+## Parte 3 
+Para comenzar con la parte de la interfaz, donde se visualizará un panel por cada sección de los gráficos, tablas, etc. 
+Se declaró un ui.navset_card_underline, ejemplo: https://shiny.posit.co/py/api/express/express.ui.navset_card_underline.html#examples.

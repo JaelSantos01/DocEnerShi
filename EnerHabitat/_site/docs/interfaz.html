@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>EnerHabitat – Doc de Ener-Habitat</title>
+<title>Interfaz – Doc de Ener-Habitat</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -30,7 +64,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../docs/interfaz.html" rel="next">
+<link href="../docs/graficas.html" rel="next">
+<link href="../docs/index.html" rel="prev">
 <link href="../images/logo_edited.png" rel="icon" type="image/png">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -70,7 +105,6 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
 
-<link rel="stylesheet" href="../CSS/inicio.css">
 </head>
 
 <body class="nav-sidebar floating nav-fixed">
@@ -106,7 +140,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../docs/index.html">Desarrollo de Ener-Habitat</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../docs/interfaz.html">Desarrollo de interfaz</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -120,13 +154,13 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../docs/index.html" class="sidebar-item-text sidebar-link active">
+  <a href="../docs/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Desarrollo de Ener-Habitat</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../docs/interfaz.html" class="sidebar-item-text sidebar-link">
+  <a href="../docs/interfaz.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Desarrollo de interfaz</span></a>
   </div>
 </li>
@@ -158,9 +192,11 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#desarrollo-de-ener-habitat" id="toc-desarrollo-de-ener-habitat" class="nav-link active" data-scroll-target="#desarrollo-de-ener-habitat">Desarrollo de Ener-Habitat</a>
+  <li><a href="#desarrollo-de-la-interfaz" id="toc-desarrollo-de-la-interfaz" class="nav-link active" data-scroll-target="#desarrollo-de-la-interfaz">Desarrollo de la Interfaz</a>
   <ul class="collapse">
-  <li><a href="#shiny-para-python" id="toc-shiny-para-python" class="nav-link" data-scroll-target="#shiny-para-python">Shiny para Python</a></li>
+  <li><a href="#parte-1" id="toc-parte-1" class="nav-link" data-scroll-target="#parte-1">Parte 1</a></li>
+  <li><a href="#parte-2" id="toc-parte-2" class="nav-link" data-scroll-target="#parte-2">Parte 2</a></li>
+  <li><a href="#parte-3" id="toc-parte-3" class="nav-link" data-scroll-target="#parte-3">Parte 3</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -171,15 +207,69 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<section id="desarrollo-de-ener-habitat" class="level1 unnumbered">
-<h1 class="unnumbered">Desarrollo de Ener-Habitat</h1>
-<p>Este sistema fue desarrollado con el sistema operativo Linux de Ubuntu 22.04.4, en conjunto con la herramienta de Shiny con un enfoque para Python para la elaboración de funciones y de la interfaz.</p>
-<p><img src="..\images/ubuntu.png" class="ubuntu-image img-fluid" alt="Ubuntu"> <img src="..\images/shiny.png" class="shiny-image img-fluid" alt="Shiny"></p>
-<p>Brevemente se describirá la herramienta que se utilizó:</p>
-<section id="shiny-para-python" class="level2">
-<h2 class="anchored" data-anchor-id="shiny-para-python">Shiny para Python</h2>
-<p>Esta herramienta es eficaz, reactiva y robusta, Shiny es de ejecución reactiva, dicha funcionalidad sirve para que los resultados se renderizen solo cuando cambian sus componentes ascendentes, capaz de admitir todo desde aplicaciones web simples a complejas (Foundation, Python, 2023).</p>
-<p>Una aplicación Shiny enfocada en Python es “una página web interactiva (ui) impulsada por una sesión de Python en vivo ejecutada por un servidor”, esto permite que los usuarios pueden manipular la interfaz de manera que el servidor actualice las pantallas del usuario mediante la ejecución de código Python, (CC BY SA Posit Software, 2024).</p>
+<section id="desarrollo-de-la-interfaz" class="level1">
+<h1>Desarrollo de la Interfaz</h1>
+<p>A continuación explicará el desarrollo de la interfaz de Ener-Habitat:</p>
+<p>La declaración de app_ui, sirve para definir la interfaz del usuario, donde se describirá la vista de la aplicación, es decir, los elementos interactivos (botones, gráficas, tablas, etc.) que estarán presentes y como estarán organizados.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">## Ejemplo para conocer el uso de app_ui</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>from Shiny import App, ui, render, reactive </span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>app_ui = ui.page_fluid("Hello Shiny!")</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>def server(input, output, session):</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>app = App(app_ui, server)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="parte-1" class="level2">
+<h2 class="anchored" data-anchor-id="parte-1">Parte 1</h2>
+<p>Una vez, explicado el uso de app_ui en Shiny, se comenzará con el desarrollo de la interfaz, declarando una ui.page_sidebar, junto con un acordeón, para generar una barra lateral indicando el nombre del sistema en este caso “Ener-Habitat”, y para colocar en el primer acordeón una función que contendrá varios inputs para que el usuario seleccione cada condición con la cual se generará el gráfico de la simulación, dependiendo el tipo de sistema que desee realizar:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">## Parte de la interfaz, que manda a llamar la función "left_controls"</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>from Shiny import App, ui, render, reactive </span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>app_ui = ui.page_sidebar(</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    ui.sidebar(</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>        ui.accordion(</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>            ui.accordion_panel(</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>                "Cambios",</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>                ui.output_ui("left_controls"),</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>            ),</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>        ),</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>)        </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="parte-2" class="level2">
+<h2 class="anchored" data-anchor-id="parte-2">Parte 2</h2>
+<p>Continuando con el desarrollo de la interfaz, se declaró un segundo acordeón que contendrá otra sección de inputs, mostrado cada uno en la función “controls_top”, junto con un input selector, para seleccionar el tipo de sistema “Con capa homogénea” y/o “Sin capa homogénea” (la cual aún sigue en desarrollo). LLamando a una lista de diccionarios, junto con un input númerico el cual el usuario seleccionará el número de sistemas que desea realizar (como minímo 1, de 1 en 1, máximo 5), y por último, un nuevo acordeón que manda a llamar la función “controls_rigth”, junto con un botón que contará las simulaciones realizadas.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">## Parte de la interfaz, que manda a llamar la función "controls_top" &amp; "controls_rigth"</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>from Shiny import App, ui, render, reactive </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>app_ui = ui.page_sidebar(</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="in">    //Código anterior</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="in">    ui.accordion(</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="in">        ui.accordion_panel(</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="in">            "Selección",</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="in">            ui.output_ui("controls_top"),</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="in">                ui.input_select(  </span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="in">                    "type",  </span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="in">                    "Tipo de sistema:",  </span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="in">                    choices= list(type_sistem.keys()),  </span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="in">                ),</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="in">        ),</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="in">    ),</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="in">    ui.input_numeric("sistemas", "Número de sistemas:", value=1, min=1, max=5),  </span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="in">    ui.accordion(</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="in">        ui.accordion_panel(</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="in">            "Datos",</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="in">            ui.output_ui("controls_rigth")</span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="in">        )</span></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="in">    ),</span></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a><span class="in">    ui.input_action_button("update", "correr"),</span></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>),        </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="parte-3" class="level2">
+<h2 class="anchored" data-anchor-id="parte-3">Parte 3</h2>
+<p>Para comenzar con la parte de la interfaz, donde se visualizará un panel por cada sección de los gráficos, tablas, etc. Se declaró un ui.navset_card_underline, ejemplo: https://shiny.posit.co/py/api/express/express.ui.navset_card_underline.html#examples</p>
 
 
 </section>
@@ -608,10 +698,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="../docs/index.html" class="pagination-link" aria-label="Desarrollo de Ener-Habitat">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Desarrollo de Ener-Habitat</span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../docs/interfaz.html" class="pagination-link" aria-label="Desarrollo de interfaz">
-        <span class="nav-page-text">Desarrollo de interfaz</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../docs/graficas.html" class="pagination-link" aria-label="Funciones para gráficas">
+        <span class="nav-page-text">Funciones para gráficas</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
