@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>EnerHabitat – Doc de Ener-Habitat</title>
+<title>funciones – Doc de Ener-Habitat</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,7 +30,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../docs/interfaz.html" rel="next">
+<link href="../docs/server.html" rel="next">
+<link href="../docs/diccionaries.html" rel="prev">
 <link href="../images/logo_edited.png" rel="icon" type="image/png">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -70,7 +71,6 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
 
-<link rel="stylesheet" href="../CSS/inicio.css">
 </head>
 
 <body class="nav-sidebar floating nav-fixed">
@@ -106,7 +106,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../docs/index.html">Desarrollo de Ener-Habitat</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../docs/funciones.html">Funciones para gráficas</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -120,7 +120,7 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../docs/index.html" class="sidebar-item-text sidebar-link active">
+  <a href="../docs/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Desarrollo de Ener-Habitat</span></a>
   </div>
 </li>
@@ -138,7 +138,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../docs/funciones.html" class="sidebar-item-text sidebar-link">
+  <a href="../docs/funciones.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Funciones para gráficas</span></a>
   </div>
 </li>
@@ -164,10 +164,7 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#desarrollo-de-ener-habitat" id="toc-desarrollo-de-ener-habitat" class="nav-link active" data-scroll-target="#desarrollo-de-ener-habitat">Desarrollo de Ener-Habitat</a>
-  <ul class="collapse">
-  <li><a href="#shiny-para-python" id="toc-shiny-para-python" class="nav-link" data-scroll-target="#shiny-para-python">Shiny para Python</a></li>
-  </ul></li>
+  <li><a href="#funciones" id="toc-funciones" class="nav-link active" data-scroll-target="#funciones">Funciones</a></li>
   </ul>
 </nav>
     </div>
@@ -177,18 +174,11 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<section id="desarrollo-de-ener-habitat" class="level1 unnumbered">
-<h1 class="unnumbered">Desarrollo de Ener-Habitat</h1>
-<p>Este sistema fue desarrollado con el sistema operativo Linux de Ubuntu 22.04.4, en conjunto con la herramienta de Shiny con un enfoque para Python para la elaboración de funciones y de la interfaz.</p>
-<p><img src="../images/ubuntu.png" class="ubuntu-image img-fluid" alt="Ubuntu"> <img src="../images/shiny.png" class="shiny-image img-fluid" alt="Shiny"></p>
-<p>Brevemente se describirá la herramienta que se utilizó:</p>
-<section id="shiny-para-python" class="level2">
-<h2 class="anchored" data-anchor-id="shiny-para-python">Shiny para Python</h2>
-<p>Esta herramienta es eficaz, reactiva y robusta, Shiny es de ejecución reactiva, dicha funcionalidad sirve para que los resultados se renderizen solo cuando cambian sus componentes ascendentes, capaz de admitir todo desde aplicaciones web simples a complejas (Foundation, Python, 2023).</p>
-<p>Una aplicación Shiny enfocada en Python es “una página web interactiva (ui) impulsada por una sesión de Python en vivo ejecutada por un servidor”, esto permite que los usuarios pueden manipular la interfaz de manera que el servidor actualice las pantallas del usuario mediante la ejecución de código Python, (CC BY SA Posit Software, 2024).</p>
+<section id="funciones" class="level1">
+<h1>Funciones</h1>
+<p>A continuacion se explicaran y se mostraran las funciones que contiene dicho sistema, para completar el desarrollo de ejecucion de la interfaz:</p>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
@@ -614,10 +604,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="../docs/diccionaries.html" class="pagination-link" aria-label="Diccionarios">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Diccionarios</span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../docs/interfaz.html" class="pagination-link" aria-label="Desarrollo de interfaz">
-        <span class="nav-page-text">Desarrollo de interfaz</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../docs/server.html" class="pagination-link" aria-label="Funciones para renderizar">
+        <span class="nav-page-text">Funciones para renderizar</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

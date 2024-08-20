@@ -12,7 +12,7 @@ website:
     type: overlay
   page-footer: 
     left: |
-      Todos los derechos de autor 
+      Derechos de autor . 2024 Documentacion de Ener-Habitat. Todos los derechos reservados
   navbar:
     background: light
     logo: images/enerhabitat.jpg
@@ -37,10 +37,12 @@ website:
         - docs/index.qmd
         - text: "Desarrollo de interfaz"
           href: docs/interfaz.qmd
+        - text: "Diccionarios"
+          href: docs/diccionaries.qmd
         - text: "Funciones para gráficas"
-          href: docs/graficas.qmd
+          href: docs/funciones.qmd
         - text: "Funciones para renderizar"
-          href: docs/renderizar.qmd
+          href: docs/server.qmd
         - text: "Base de datos"
           href: docs/bd.qmd
 

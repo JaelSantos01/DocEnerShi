@@ -1,10 +1,43 @@
 [
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Ener-Habitat",
+    "objectID": "docs/interfaz.html",
+    "href": "docs/interfaz.html",
+    "title": "Desarrollo de la Interfaz",
     "section": "",
-    "text": "Ener-Habitat\n\nLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n\n\n\n\n\n\nAnteriormente Ener-Habitat fue desarrollada con distintos leguajes conocidos, como: JavaScript, MySQL, Html y Jsp. Dicho sistema terminó fallando con el pasar del tiempo debido a su gran cantidad de usuarios que se registraban, al igual que se generó una saturación de información.\n\n\n\n\nActualmente se renovo el sistema con una interfaz grafica mejorada al igual que el rendimiento, sin necesidad de registrarse. Libre para cualquier usuario, utilizando diferentes herramientas para su desarrollo como Shiny para Python, Plotly para el diseno de las graficas.\n\n\n\n\n\n\nEmpezar"
+    "text": "A continuación explicará el desarrollo de la interfaz de Ener-Habitat:\nLa declaración de app_ui, sirve para definir la interfaz del usuario, donde se describirá la vista de la aplicación, es decir, los elementos interactivos (botones, gráficas, tablas, etc.) que estarán presentes y como estarán organizados.\n## Ejemplo para conocer el uso de app_ui\nfrom Shiny import App, ui, render, reactive \n\napp_ui = ui.page_fluid(\"Hello Shiny!\")\n\ndef server(input, output, session):\n\napp = App(app_ui, server)\n\n\nUna vez, explicado el uso de app_ui en Shiny, se comenzará con el desarrollo de la interfaz, declarando una ui.page_sidebar, junto con un acordeón, para generar una barra lateral indicando el nombre del sistema en este caso “Ener-Habitat”, y para colocar en el primer acordeón una función que contendrá varios inputs para que el usuario seleccione cada condición con la cual se generará el gráfico de la simulación, dependiendo el tipo de sistema que desee realizar:\n## Parte de la interfaz, que manda a llamar la función \n## \"left_controls\"\nfrom Shiny import App, ui, render, reactive \n\napp_ui = ui.page_sidebar(\n    ui.sidebar(\n        ui.accordion(\n            ui.accordion_panel(\n                \"Cambios\",\n                ui.output_ui(\"left_controls\"),\n            ),\n        ),\n    )\n)        \n\n\n\nContinuando con el desarrollo de la interfaz, se declaró un segundo acordeón que contendrá otra sección de inputs, mostrado cada uno en la función “controls_top”, junto con un input selector, para seleccionar el tipo de sistema “Con capa homogénea” y/o “Sin capa homogénea” (la cual aún sigue en desarrollo). LLamando a una lista de diccionarios, junto con un input númerico el cual el usuario seleccionará el número de sistemas que desea realizar (como minímo 1, de 1 en 1, máximo 5), y por último, un nuevo acordeón que manda a llamar la función “controls_rigth”, junto con un botón que contará las simulaciones realizadas.\n## Parte de la interfaz, que manda a llamar la función \n## \"controls_top\" & \"controls_rigth\"\nfrom Shiny import App, ui, render, reactive \n\napp_ui = ui.page_sidebar(\n\n    ui.accordion(\n        ui.accordion_panel(\n            \"Selección\",\n            ui.output_ui(\"controls_top\"),\n                ui.input_select(  \n                    \"type\",  \n                    \"Tipo de sistema:\",  \n                    choices= list(type_sistem.keys()),  \n                ),\n        ),\n    ),\n    ui.input_numeric(\"sistemas\", \"Número de sistemas:\", \n    value=1, min=1, max=5),  \n    ui.accordion(\n        ui.accordion_panel(\n            \"Datos\",\n            ui.output_ui(\"controls_rigth\")\n        )\n    ),\n    ui.input_action_button(\"update\", \"correr\"),\n),        \n\n\n\nPara comenzar con la parte de la interfaz, donde se visualizará un panel por cada sección de los gráficos, tablas, etc. Se declaró un ui.navset_card_underline, para dividir cada seccion con paneles (nav.panel), los cuales contendran diferentes secciones de informacion visible para el usuario como: la grafica de temperatura, la segunda grafica de radiacion, los resultados, el DataFrame junto con el boton de descarga y por ultimo el panel de la documentacion.\n\n\n\n\n\n\nEjemplo de uso ui.navset_card_underline:\n\n\n\n## Parte de la interfaz, que renderiza cada seccion \n## de panel con el nombre \"Datos Graficados\"\nfrom Shiny import App, ui, render, reactive \n\napp_ui = ui.page_sidebar(\n\n    ui.navset_card_underline(\n        ui.nav_panel(\"Temperaturas\", output_widget(\"temperatura\")),\n        ui.nav_panel(\"Radiación\", output_widget(\"radiacion\")),\n        ui.nav_panel(\"Resultados\", ui.output_text(\"resultados\")),\n        ui.nav_panel(\"Datos\", ui.output_data_frame(\"get_day_data\"),\n        ui.download_button(\"downloadData\", \"Download\")),\n        ui.nav_panel(\"Documentacion\", ui.output_ui(\"documentacion\")),\n\n        title=\"Datos Gráficados\",\n    ),\n\n    ui.include_css(app_dir / \"styles.css\"),\n    fillable=True,\n),        \nDonde la parte inferior contiene la declaracion y ubicacion del archivo css para el tipo de estilo que contiene la interfaz, al igual que permitimos con “fillable = True” que el usuario ingrese o edite datos en ese campo.\n\n\n\nPara terminar con el desarrollo de la interfaz, se genero un div para indicar que el titulo de la interfaz seria “Renovacion de Ener-Habitat” e indicandole que junto con el titulo se anadiria una imagen que redireccionara a dicha documentacion.\n## Parte final de la interfaz\n\nfrom Shiny import App, ui, render, reactive \n\napp_ui = ui.page_sidebar(\n\n    title=ui.tags.div(\n        \"Renovacion de Ener-Habitat\",\n        ui.a(\n            ui.img(src=\"logo.png\", \n            height=\"25px\", width=\"25px\"),\n            href=\"https://example.com\",\n            target=\"_blank\",\n            style=\"margin-left: 10px;\" \n        ),\n    ),\n),",
+    "crumbs": [
+      "Desarrollo de interfaz"
+    ]
+  },
+  {
+    "objectID": "docs/interfaz.html#parte-1",
+    "href": "docs/interfaz.html#parte-1",
+    "title": "Desarrollo de la Interfaz",
+    "section": "",
+    "text": "Una vez, explicado el uso de app_ui en Shiny, se comenzará con el desarrollo de la interfaz, declarando una ui.page_sidebar, junto con un acordeón, para generar una barra lateral indicando el nombre del sistema en este caso “Ener-Habitat”, y para colocar en el primer acordeón una función que contendrá varios inputs para que el usuario seleccione cada condición con la cual se generará el gráfico de la simulación, dependiendo el tipo de sistema que desee realizar:\n## Parte de la interfaz, que manda a llamar la función \n## \"left_controls\"\nfrom Shiny import App, ui, render, reactive \n\napp_ui = ui.page_sidebar(\n    ui.sidebar(\n        ui.accordion(\n            ui.accordion_panel(\n                \"Cambios\",\n                ui.output_ui(\"left_controls\"),\n            ),\n        ),\n    )\n)",
+    "crumbs": [
+      "Desarrollo de interfaz"
+    ]
+  },
+  {
+    "objectID": "docs/interfaz.html#parte-2",
+    "href": "docs/interfaz.html#parte-2",
+    "title": "Desarrollo de la Interfaz",
+    "section": "",
+    "text": "Continuando con el desarrollo de la interfaz, se declaró un segundo acordeón que contendrá otra sección de inputs, mostrado cada uno en la función “controls_top”, junto con un input selector, para seleccionar el tipo de sistema “Con capa homogénea” y/o “Sin capa homogénea” (la cual aún sigue en desarrollo). LLamando a una lista de diccionarios, junto con un input númerico el cual el usuario seleccionará el número de sistemas que desea realizar (como minímo 1, de 1 en 1, máximo 5), y por último, un nuevo acordeón que manda a llamar la función “controls_rigth”, junto con un botón que contará las simulaciones realizadas.\n## Parte de la interfaz, que manda a llamar la función \n## \"controls_top\" & \"controls_rigth\"\nfrom Shiny import App, ui, render, reactive \n\napp_ui = ui.page_sidebar(\n\n    ui.accordion(\n        ui.accordion_panel(\n            \"Selección\",\n            ui.output_ui(\"controls_top\"),\n                ui.input_select(  \n                    \"type\",  \n                    \"Tipo de sistema:\",  \n                    choices= list(type_sistem.keys()),  \n                ),\n        ),\n    ),\n    ui.input_numeric(\"sistemas\", \"Número de sistemas:\", \n    value=1, min=1, max=5),  \n    ui.accordion(\n        ui.accordion_panel(\n            \"Datos\",\n            ui.output_ui(\"controls_rigth\")\n        )\n    ),\n    ui.input_action_button(\"update\", \"correr\"),\n),",
+    "crumbs": [
+      "Desarrollo de interfaz"
+    ]
+  },
+  {
+    "objectID": "docs/interfaz.html#parte-3",
+    "href": "docs/interfaz.html#parte-3",
+    "title": "Desarrollo de la Interfaz",
+    "section": "",
+    "text": "Para comenzar con la parte de la interfaz, donde se visualizará un panel por cada sección de los gráficos, tablas, etc. Se declaró un ui.navset_card_underline, para dividir cada seccion con paneles (nav.panel), los cuales contendran diferentes secciones de informacion visible para el usuario como: la grafica de temperatura, la segunda grafica de radiacion, los resultados, el DataFrame junto con el boton de descarga y por ultimo el panel de la documentacion.\n\n\n\n\n\n\nEjemplo de uso ui.navset_card_underline:\n\n\n\n## Parte de la interfaz, que renderiza cada seccion \n## de panel con el nombre \"Datos Graficados\"\nfrom Shiny import App, ui, render, reactive \n\napp_ui = ui.page_sidebar(\n\n    ui.navset_card_underline(\n        ui.nav_panel(\"Temperaturas\", output_widget(\"temperatura\")),\n        ui.nav_panel(\"Radiación\", output_widget(\"radiacion\")),\n        ui.nav_panel(\"Resultados\", ui.output_text(\"resultados\")),\n        ui.nav_panel(\"Datos\", ui.output_data_frame(\"get_day_data\"),\n        ui.download_button(\"downloadData\", \"Download\")),\n        ui.nav_panel(\"Documentacion\", ui.output_ui(\"documentacion\")),\n\n        title=\"Datos Gráficados\",\n    ),\n\n    ui.include_css(app_dir / \"styles.css\"),\n    fillable=True,\n),        \nDonde la parte inferior contiene la declaracion y ubicacion del archivo css para el tipo de estilo que contiene la interfaz, al igual que permitimos con “fillable = True” que el usuario ingrese o edite datos en ese campo.",
+    "crumbs": [
+      "Desarrollo de interfaz"
+    ]
   },
   {
     "objectID": "about.html",
@@ -24,43 +57,6 @@
     ]
   },
   {
-    "objectID": "docs/index.html#qué-aprenderás",
-    "href": "docs/index.html#qué-aprenderás",
-    "title": "Bienvenida",
-    "section": "",
-    "text": "El curso está organizado por cuatro grandes temas o semanas y un proyecto final, que son:\n\nInstalación y prácticas avanzadas:\nExploración avanzada de datos\nPandas avanzado\nNuevas herramientas en la ciencia de datos\nProyecto final"
-  },
-  {
-    "objectID": "docs/index.html#markdowny-a-continuación-se-mostraran-las-funciones-que-se-utilizaron-y-la-explicación-de-cada-una-de-ellas.",
-    "href": "docs/index.html#markdowny-a-continuación-se-mostraran-las-funciones-que-se-utilizaron-y-la-explicación-de-cada-una-de-ellas.",
-    "title": "Desarrollo de Ener-Habitat",
-    "section": "",
-    "text": "title: “observable plot” author: “Norah Jones” format: html: code-fold: true —",
-    "crumbs": [
-      "Desarrollo de Ener-Habitat"
-    ]
-  },
-  {
-    "objectID": "docs/index.html#seattle-precipitation-by-day-2012-to-2016",
-    "href": "docs/index.html#seattle-precipitation-by-day-2012-to-2016",
-    "title": "Desarrollo de Ener-Habitat",
-    "section": "",
-    "text": "```{ojs}\ndata = FileAttachment(\"seattle-weather.csv\")\n  .csv({typed: true})\n  \nPlot.plot({\n  width: 800, height: 500, padding: 0,\n  color: { scheme: \"blues\", type: \"sqrt\"},\n  y: { tickFormat: i =&gt; \"JFMAMJJASOND\"[i] },\n  marks: [\n    Plot.cell(data, Plot.group({fill: \"mean\"}, {\n      x: d =&gt; new Date(d.date).getDate(),\n      y: d =&gt; new Date(d.date).getMonth(),\n      fill: \"precipitation\", \n      inset: 0.5\n    }))\n  ]\n})\n```",
-    "crumbs": [
-      "Desarrollo de Ener-Habitat"
-    ]
-  },
-  {
-    "objectID": "docs/interfaz.html",
-    "href": "docs/interfaz.html",
-    "title": "Desarrollo de la Interfaz",
-    "section": "",
-    "text": "A continuación explicará el desarrollo de la interfaz de Ener-Habitat:\nLa declaración de app_ui, sirve para definir la interfaz del usuario, donde se describirá la vista de la aplicación, es decir, los elementos interactivos (botones, gráficas, tablas, etc.) que estarán presentes y como estarán organizados.\n## Ejemplo para conocer el uso de app_ui\nfrom Shiny import App, ui, render, reactive \n\napp_ui = ui.page_fluid(\"Hello Shiny!\")\n\ndef server(input, output, session):\n\napp = App(app_ui, server)\n\n\nUna vez, explicado el uso de app_ui en Shiny, se comenzará con el desarrollo de la interfaz, declarando una ui.page_sidebar, junto con un acordeón, para generar una barra lateral indicando el nombre del sistema en este caso “Ener-Habitat”, y para colocar en el primer acordeón una función que contendrá varios inputs para que el usuario seleccione cada condición con la cual se generará el gráfico de la simulación, dependiendo el tipo de sistema que desee realizar:\n## Parte de la interfaz, que manda a llamar la función \"left_controls\"\nfrom Shiny import App, ui, render, reactive \n\napp_ui = ui.page_sidebar(\n    ui.sidebar(\n        ui.accordion(\n            ui.accordion_panel(\n                \"Cambios\",\n                ui.output_ui(\"left_controls\"),\n            ),\n        ),\n    )\n)        \n\n\n\nContinuando con el desarrollo de la interfaz, se declaró un segundo acordeón que contendrá otra sección de inputs, mostrado cada uno en la función “controls_top”, junto con un input selector, para seleccionar el tipo de sistema “Con capa homogénea” y/o “Sin capa homogénea” (la cual aún sigue en desarrollo). LLamando a una lista de diccionarios, junto con un input númerico el cual el usuario seleccionará el número de sistemas que desea realizar (como minímo 1, de 1 en 1, máximo 5), y por último, un nuevo acordeón que manda a llamar la función “controls_rigth”, junto con un botón que contará las simulaciones realizadas.\n## Parte de la interfaz, que manda a llamar la función \"controls_top\" & \"controls_rigth\"\nfrom Shiny import App, ui, render, reactive \n\napp_ui = ui.page_sidebar(\n    \n    //Código anterior\n\n    ui.accordion(\n        ui.accordion_panel(\n            \"Selección\",\n            ui.output_ui(\"controls_top\"),\n                ui.input_select(  \n                    \"type\",  \n                    \"Tipo de sistema:\",  \n                    choices= list(type_sistem.keys()),  \n                ),\n        ),\n    ),\n    ui.input_numeric(\"sistemas\", \"Número de sistemas:\", value=1, min=1, max=5),  \n    ui.accordion(\n        ui.accordion_panel(\n            \"Datos\",\n            ui.output_ui(\"controls_rigth\")\n        )\n    ),\n    ui.input_action_button(\"update\", \"correr\"),\n),        \n\n\n\nPara comenzar con la parte de la interfaz, donde se visualizará un panel por cada sección de los gráficos, tablas, etc. Se declaró un ui.navset_card_underline,\n\n\n\n\n\n\nEjemplo de uso ui.navset_card_underline:.",
-    "crumbs": [
-      "Desarrollo de interfaz"
-    ]
-  },
-  {
     "objectID": "docs/index.html#shiny-para-python",
     "href": "docs/index.html#shiny-para-python",
     "title": "Desarrollo de Ener-Habitat",
@@ -71,133 +67,63 @@
     ]
   },
   {
-    "objectID": "docs/interfaz.html#fu",
-    "href": "docs/interfaz.html#fu",
+    "objectID": "docs/interfaz.html#parte-final",
+    "href": "docs/interfaz.html#parte-final",
     "title": "Desarrollo de la Interfaz",
     "section": "",
-    "text": "La declaración de app_ui, sirve para definir la interfaz del usuario, donde se describirá la vista de la aplicación, es decir, los elementos interactivos (botones, gráficas, tablas, etc.) que estarán presentes y como estarán organizados.\nfrom Shiny import App, ui, render, reactive \n\napp_ui = ui.page_fluid(\"Hello Shiny!\")\n\ndef server(input, output, session):\n\napp = App(app_ui, server)\nUna vez, explicado el uso de app_ui en Shiny, se comenzará con el desarrollo de la interfaz, declarando una ui.page_sidebar, junto con un acordeón, para generar una barra lateral indicando el nombre del sistema en este caso “Ener-Habitat”, y para colocar en el primer acordeón una función que contendrá varios inputs para que el usuario seleccione cada condición con la cual se generará el gráfico de la simulación, dependiendo el tipo de sistema que desee realizar:\nfrom Shiny import App, ui, render, reactive \n\napp_ui = ui.page_sidebar(\n    ui.sidebar(\n        ui.accordion(\n            ui.accordion_panel(\n                \"Cambios\",\n                ui.output_ui(\"left_controls\"),\n            ),\n        ),\n    )\n)        \n\ndef server(input, output, session):\n\napp = App(app_ui, server)",
+    "text": "Para terminar con el desarrollo de la interfaz, se genero un div para indicar que el titulo de la interfaz seria “Renovacion de Ener-Habitat” e indicandole que junto con el titulo se anadiria una imagen que redireccionara a dicha documentacion.\n## Parte final de la interfaz\n\nfrom Shiny import App, ui, render, reactive \n\napp_ui = ui.page_sidebar(\n\n    title=ui.tags.div(\n        \"Renovacion de Ener-Habitat\",\n        ui.a(\n            ui.img(src=\"logo.png\", \n            height=\"25px\", width=\"25px\"),\n            href=\"https://example.com\",\n            target=\"_blank\",\n            style=\"margin-left: 10px;\" \n        ),\n    ),\n),",
     "crumbs": [
       "Desarrollo de interfaz"
     ]
   },
   {
-    "objectID": "docs/interfaz.html#función-de-app_ui",
-    "href": "docs/interfaz.html#función-de-app_ui",
-    "title": "Desarrollo de la Interfaz",
+    "objectID": "docs/funciones.html",
+    "href": "docs/funciones.html",
+    "title": "Funciones",
     "section": "",
-    "text": "La declaración de app_ui, sirve para definir la interfaz del usuario, donde se describirá la vista de la aplicación, es decir, los elementos interactivos (botones, gráficas, tablas, etc.) que estarán presentes y como estarán organizados.\nfrom Shiny import App, ui, render, reactive \n\napp_ui = ui.page_fluid(\"Hello Shiny!\")\n\ndef server(input, output, session):\n\napp = App(app_ui, server)\nUna vez, explicado el uso de app_ui en Shiny, se comenzará con el desarrollo de la interfaz, declarando una ui.page_sidebar, junto con un acordeón, para generar una barra lateral indicando el nombre del sistema en este caso “Ener-Habitat”, y para colocar en el primer acordeón una función que contendrá varios inputs para que el usuario seleccione cada condición con la cual se generará el gráfico de la simulación, dependiendo el tipo de sistema que desee realizar:\nfrom Shiny import App, ui, render, reactive \n\napp_ui = ui.page_sidebar(\n    ui.sidebar(\n        ui.accordion(\n            ui.accordion_panel(\n                \"Cambios\",\n                ui.output_ui(\"left_controls\"),\n            ),\n        ),\n    )\n)        \n\ndef server(input, output, session):\n\napp = App(app_ui, server)",
+    "text": "Funciones\nA continuacion se explicaran y se mostraran las funciones que contiene dicho sistema, para completar el desarrollo de ejecucion de la interfaz:",
     "crumbs": [
-      "Desarrollo de interfaz"
+      "Funciones para gráficas"
     ]
   },
   {
-    "objectID": "docs/interfaz.html#inic",
-    "href": "docs/interfaz.html#inic",
-    "title": "Desarrollo de la Interfaz",
+    "objectID": "docs/diccionaries.html",
+    "href": "docs/diccionaries.html",
+    "title": "Diccionarios",
     "section": "",
-    "text": "Una vez, explicado el uso de app_ui en Shiny, se comenzará con el desarrollo de la interfaz, declarando una ui.page_sidebar, junto con un acordeón, para generar una barra lateral indicando el nombre del sistema en este caso “Ener-Habitat”, y para colocar en el primer acordeón una función que contendrá varios inputs para que el usuario seleccione cada condición con la cual se generará el gráfico de la simulación, dependiendo el tipo de sistema que desee realizar:\nfrom Shiny import App, ui, render, reactive \n\napp_ui = ui.page_sidebar(\n    ui.sidebar(\n        ui.accordion(\n            ui.accordion_panel(\n                \"Cambios\",\n                ui.output_ui(\"left_controls\"),\n            ),\n        ),\n    )\n)        \n\ndef server(input, output, session):\n\napp = App(app_ui, server)",
+    "text": "Un diccionario en Python es una estructura de datos que permite almacenar pares de clave-valor. Cada clave en un diccionario es única y se usa para acceder al valor asociado. Los diccionarios son muy versátiles y se utilizan comúnmente para representar datos estructurados y realizar búsquedas rápidas.\n\nA continuacion se mostraran la lista de diccionarios que se crearon para la funcionalidad del sistema:\n\n\nEste diccionario se genero para mostrar al usuario la lista de los meses y a la vez obtener su valor para generar los graficos dependiendo el mes que se seleccione.\nmeses_dict = {\n    \"Enero\": \"01\",\n    \"Febrero\": \"02\",\n    \"Marzo\": \"03\",\n    \"Abril\": \"04\",\n    \"Mayo\": \"05\",\n    \"Junio\": \"06\",\n    \"Julio\": \"07\",\n    \"Agosto\": \"08\",\n    \"Septiembre\": \"09\",       \n    \"Octubre\": \"10\",\n    \"Noviembre\": \"11\",\n    \"Diciembre\": \"12\",\n}\nA continuacion se muestra su uso en el sistema:\n\n\n\n\n\n\nAl igual que el diccionario anterior, su funcionalidad es que el texto (clave), se mostrara al usuario para que este pudiera seleccionar la absortancia de su preferencia para realizar el calculo en base al valor que contenga.\nAbsortancia = {\n    \"Aluminio pulido (0.10)\": 0.10,\n    \"Aluminio oxidado (0.15)\": 0.15,\n    \"Impermeabilizante o pintura blanca nueva (0.15)\": 0.15,\n    \"Impermeabilizante o pintura blanca (0.20)\": 0.20,\n    \"Pintura aluminio (0.2)\": 0.2,\n    \"Lámina galvanizada brillante (0.25)\": 0.25,\n    \"Pintura colores claros (0.3)\": 0.3,\n    \"Recubrimiento elastomérico blanco (0.30)\": 0.30,\n    \"Acero (0.45)\" : 0.45,\n    \"Pintura colores intermedios (0.50)\": 0.50,\n    \"Concreto claro o adocreto claro (0.60)\": 0.60,\n    \"Ladrillo rojo (0.65)\": 0.65,\n    \"Impermeabilizante rojo terracota (0.70)\": 0.70,\n    \"Lámina galvanizada (0.7)\": 0.7,\n    \"Pintura colores oscuros (0.7)\": 0.7,\n    \"Teja roja (0.7)\": 0.7,\n    \"Concreto (0.7)\": 0.7,\n    \"Impermeabilizante o pintura negra (0.90)\": 0.90,\n    \"Asfalto nuevo (0.95)\": 0.95,\n    \"Impermeabilizante o pintura negra mate nueva (0.95)\": 0.95,\n}\nA continuacion se muestra su uso en el sistema:\n\n\n\n\n\n\nPor ultimo se crearon los diccionarios correspondientes a la ubicacion del sistema constructivo, orientacion del mismo y el tipo de sistema a analizar.\nlocation={\n    \"Muro\": 90,\n    \"Techo\": 0,\n}\n\norientacion = {\n    \"Norte\": 0,\n    \"Noreste\": 45,\n    \"Este\": 90, \n    \"Sureste\": 135, \n    \"Sur\": 180,\n    \"Suroeste\": 225, \n    \"Oeste\": 270, \n    \"Noroeste\": 315,\n}\n\ntype_sistem = {\n    \"Con capa homogenea\" : 1,\n    \"Sin capa homogenea\" : 2,\n}\nA continuacion se muestra su uso en el sistema:",
     "crumbs": [
-      "Desarrollo de interfaz"
+      "Diccionarios"
     ]
   },
   {
-    "objectID": "docs/interfaz.html#inicio-c",
-    "href": "docs/interfaz.html#inicio-c",
-    "title": "Desarrollo de la Interfaz",
+    "objectID": "docs/diccionaries.html#diccionario-para-seleccionar-el-mes",
+    "href": "docs/diccionaries.html#diccionario-para-seleccionar-el-mes",
+    "title": "Diccionarios",
     "section": "",
-    "text": "Una vez, explicado el uso de app_ui en Shiny, se comenzará con el desarrollo de la interfaz, declarando una ui.page_sidebar, junto con un acordeón, para generar una barra lateral indicando el nombre del sistema en este caso “Ener-Habitat”, y para colocar en el primer acordeón una función que contendrá varios inputs para que el usuario seleccione cada condición con la cual se generará el gráfico de la simulación, dependiendo el tipo de sistema que desee realizar:\nfrom Shiny import App, ui, render, reactive \n\napp_ui = ui.page_sidebar(\n    ui.sidebar(\n        ui.accordion(\n            ui.accordion_panel(\n                \"Cambios\",\n                ui.output_ui(\"left_controls\"),\n            ),\n        ),\n    )\n)        \n\ndef server(input, output, session):\n\napp = App(app_ui, server)",
+    "text": "Este diccionario se genero para mostrar al usuario la lista de los meses y a la vez obtener su valor para generar los graficos dependiendo el mes que se seleccione.\nmeses_dict = {\n    \"Enero\": \"01\",\n    \"Febrero\": \"02\",\n    \"Marzo\": \"03\",\n    \"Abril\": \"04\",\n    \"Mayo\": \"05\",\n    \"Junio\": \"06\",\n    \"Julio\": \"07\",\n    \"Agosto\": \"08\",\n    \"Septiembre\": \"09\",       \n    \"Octubre\": \"10\",\n    \"Noviembre\": \"11\",\n    \"Diciembre\": \"12\",\n}\nA continuacion se muestra su uso en el sistema:",
     "crumbs": [
-      "Desarrollo de interfaz"
+      "Diccionarios"
     ]
   },
   {
-    "objectID": "docs/interfaz.html#inicio-con-la-página",
-    "href": "docs/interfaz.html#inicio-con-la-página",
-    "title": "Desarrollo de la Interfaz",
+    "objectID": "docs/diccionaries.html#diccionario-para-la-absortancia",
+    "href": "docs/diccionaries.html#diccionario-para-la-absortancia",
+    "title": "Diccionarios",
     "section": "",
-    "text": "Una vez, explicado el uso de app_ui en Shiny, se comenzará con el desarrollo de la interfaz, declarando una ui.page_sidebar, junto con un acordeón, para generar una barra lateral indicando el nombre del sistema en este caso “Ener-Habitat”, y para colocar en el primer acordeón una función que contendrá varios inputs para que el usuario seleccione cada condición con la cual se generará el gráfico de la simulación, dependiendo el tipo de sistema que desee realizar:\nfrom Shiny import App, ui, render, reactive \n\napp_ui = ui.page_sidebar(\n    ui.sidebar(\n        ui.accordion(\n            ui.accordion_panel(\n                \"Cambios\",\n                ui.output_ui(\"left_controls\"),\n            ),\n        ),\n    )\n)        \n\ndef server(input, output, session):\n\napp = App(app_ui, server)",
+    "text": "Al igual que el diccionario anterior, su funcionalidad es que el texto (clave), se mostrara al usuario para que este pudiera seleccionar la absortancia de su preferencia para realizar el calculo en base al valor que contenga.\nAbsortancia = {\n    \"Aluminio pulido (0.10)\": 0.10,\n    \"Aluminio oxidado (0.15)\": 0.15,\n    \"Impermeabilizante o pintura blanca nueva (0.15)\": 0.15,\n    \"Impermeabilizante o pintura blanca (0.20)\": 0.20,\n    \"Pintura aluminio (0.2)\": 0.2,\n    \"Lámina galvanizada brillante (0.25)\": 0.25,\n    \"Pintura colores claros (0.3)\": 0.3,\n    \"Recubrimiento elastomérico blanco (0.30)\": 0.30,\n    \"Acero (0.45)\" : 0.45,\n    \"Pintura colores intermedios (0.50)\": 0.50,\n    \"Concreto claro o adocreto claro (0.60)\": 0.60,\n    \"Ladrillo rojo (0.65)\": 0.65,\n    \"Impermeabilizante rojo terracota (0.70)\": 0.70,\n    \"Lámina galvanizada (0.7)\": 0.7,\n    \"Pintura colores oscuros (0.7)\": 0.7,\n    \"Teja roja (0.7)\": 0.7,\n    \"Concreto (0.7)\": 0.7,\n    \"Impermeabilizante o pintura negra (0.90)\": 0.90,\n    \"Asfalto nuevo (0.95)\": 0.95,\n    \"Impermeabilizante o pintura negra mate nueva (0.95)\": 0.95,\n}\nA continuacion se muestra su uso en el sistema:",
     "crumbs": [
-      "Desarrollo de interfaz"
+      "Diccionarios"
     ]
   },
   {
-    "objectID": "docs/interfaz.html#section",
-    "href": "docs/interfaz.html#section",
-    "title": "Desarrollo de la Interfaz",
+    "objectID": "docs/diccionaries.html#diccionarios-ubicacion-orientacion-y-tipo-de-sistema",
+    "href": "docs/diccionaries.html#diccionarios-ubicacion-orientacion-y-tipo-de-sistema",
+    "title": "Diccionarios",
     "section": "",
-    "text": "Una vez, explicado el uso de app_ui en Shiny, se comenzará con el desarrollo de la interfaz, declarando una ui.page_sidebar, junto con un acordeón, para generar una barra lateral indicando el nombre del sistema en este caso “Ener-Habitat”, y para colocar en el primer acordeón una función que contendrá varios inputs para que el usuario seleccione cada condición con la cual se generará el gráfico de la simulación, dependiendo el tipo de sistema que desee realizar:\n\n## Ejemplo para conocer el uso de app_ui\nfrom Shiny import App, ui, render, reactive \n\napp_ui = ui.page_sidebar(\n    ui.sidebar(\n        ui.accordion(\n            ui.accordion_panel(\n                \"Cambios\",\n                ui.output_ui(\"left_controls\"),\n            ),\n        ),\n    )\n)",
+    "text": "Por ultimo se crearon los diccionarios correspondientes a la ubicacion del sistema constructivo, orientacion del mismo y el tipo de sistema a analizar.\nlocation={\n    \"Muro\": 90,\n    \"Techo\": 0,\n}\n\norientacion = {\n    \"Norte\": 0,\n    \"Noreste\": 45,\n    \"Este\": 90, \n    \"Sureste\": 135, \n    \"Sur\": 180,\n    \"Suroeste\": 225, \n    \"Oeste\": 270, \n    \"Noroeste\": 315,\n}\n\ntype_sistem = {\n    \"Con capa homogenea\" : 1,\n    \"Sin capa homogenea\" : 2,\n}\nA continuacion se muestra su uso en el sistema:",
     "crumbs": [
-      "Desarrollo de interfaz"
-    ]
-  },
-  {
-    "objectID": "docs/interfaz.html#parte-1",
-    "href": "docs/interfaz.html#parte-1",
-    "title": "Desarrollo de la Interfaz",
-    "section": "",
-    "text": "Una vez, explicado el uso de app_ui en Shiny, se comenzará con el desarrollo de la interfaz, declarando una ui.page_sidebar, junto con un acordeón, para generar una barra lateral indicando el nombre del sistema en este caso “Ener-Habitat”, y para colocar en el primer acordeón una función que contendrá varios inputs para que el usuario seleccione cada condición con la cual se generará el gráfico de la simulación, dependiendo el tipo de sistema que desee realizar:\n## Parte de la interfaz, que manda a llamar la función \"left_controls\"\nfrom Shiny import App, ui, render, reactive \n\napp_ui = ui.page_sidebar(\n    ui.sidebar(\n        ui.accordion(\n            ui.accordion_panel(\n                \"Cambios\",\n                ui.output_ui(\"left_controls\"),\n            ),\n        ),\n    )\n)",
-    "crumbs": [
-      "Desarrollo de interfaz"
-    ]
-  },
-  {
-    "objectID": "docs/interfaz.html#parte-2",
-    "href": "docs/interfaz.html#parte-2",
-    "title": "Desarrollo de la Interfaz",
-    "section": "",
-    "text": "Continuando con el desarrollo de la interfaz, se declaró un segundo acordeón que contendrá otra sección de inputs, mostrado cada uno en la función “controls_top”, junto con un input selector, para seleccionar el tipo de sistema “Con capa homogénea” y/o “Sin capa homogénea” (la cual aún sigue en desarrollo). LLamando a una lista de diccionarios, junto con un input númerico el cual el usuario seleccionará el número de sistemas que desea realizar (como minímo 1, de 1 en 1, máximo 5), y por último, un nuevo acordeón que manda a llamar la función “controls_rigth”, junto con un botón que contará las simulaciones realizadas.\n## Parte de la interfaz, que manda a llamar la función \"controls_top\" & \"controls_rigth\"\nfrom Shiny import App, ui, render, reactive \n\napp_ui = ui.page_sidebar(\n    \n    //Código anterior\n\n    ui.accordion(\n        ui.accordion_panel(\n            \"Selección\",\n            ui.output_ui(\"controls_top\"),\n                ui.input_select(  \n                    \"type\",  \n                    \"Tipo de sistema:\",  \n                    choices= list(type_sistem.keys()),  \n                ),\n        ),\n    ),\n    ui.input_numeric(\"sistemas\", \"Número de sistemas:\", value=1, min=1, max=5),  \n    ui.accordion(\n        ui.accordion_panel(\n            \"Datos\",\n            ui.output_ui(\"controls_rigth\")\n        )\n    ),\n    ui.input_action_button(\"update\", \"correr\"),\n),",
-    "crumbs": [
-      "Desarrollo de interfaz"
-    ]
-  },
-  {
-    "objectID": "docs/interfaz.html#parte-1--",
-    "href": "docs/interfaz.html#parte-1--",
-    "title": "Desarrollo de la Interfaz",
-    "section": "",
-    "text": "Una vez, explicado el uso de app_ui en Shiny, se comenzará con el desarrollo de la interfaz, declarando una ui.page_sidebar, junto con un acordeón, para generar una barra lateral indicando el nombre del sistema en este caso “Ener-Habitat”, y para colocar en el primer acordeón una función que contendrá varios inputs para que el usuario seleccione cada condición con la cual se generará el gráfico de la simulación, dependiendo el tipo de sistema que desee realizar:\nfrom Shiny import App, ui, render, reactive \n\napp_ui = ui.page_sidebar(\n    ui.sidebar(\n        ui.accordion(\n            ui.accordion_panel(\n                \"Cambios\",\n                ui.output_ui(\"left_controls\"),\n            ),\n        ),\n    )\n)",
-    "crumbs": [
-      "Desarrollo de interfaz"
-    ]
-  },
-  {
-    "objectID": "docs/interfaz.html#parte-3",
-    "href": "docs/interfaz.html#parte-3",
-    "title": "Desarrollo de la Interfaz",
-    "section": "",
-    "text": "Para comenzar con la parte de la interfaz, donde se visualizará un panel por cada sección de los gráficos, tablas, etc. Se declaró un ui.navset_card_underline,\n\n\n\n\n\n\nEjemplo de uso ui.navset_card_underline:.",
-    "crumbs": [
-      "Desarrollo de interfaz"
-    ]
-  },
-  {
-    "objectID": "docs/interfaz.html#explicación-de",
-    "href": "docs/interfaz.html#explicación-de",
-    "title": "Desarrollo de la Interfaz",
-    "section": "",
-    "text": "Para comenzar con la parte de la interfaz, donde se visualizará cada sección de los gráficos, tablas, etc. Se declaró un ui.navset_card_underline,",
-    "crumbs": [
-      "Desarrollo de interfaz"
-    ]
-  },
-  {
-    "objectID": "docs/interfaz.html#explicación-del-uso-de",
-    "href": "docs/interfaz.html#explicación-del-uso-de",
-    "title": "Desarrollo de la Interfaz",
-    "section": "",
-    "text": "Para comenzar con la parte de la interfaz, donde se visualizará cada sección de los gráficos, tablas, etc. Se declaró un ui.navset_card_underline,",
-    "crumbs": [
-      "Desarrollo de interfaz"
-    ]
-  },
-  {
-    "objectID": "docs/interfaz.html#explicación-del-uso-de-ui.navser_card_underline",
-    "href": "docs/interfaz.html#explicación-del-uso-de-ui.navser_card_underline",
-    "title": "Desarrollo de la Interfaz",
-    "section": "",
-    "text": "Para comenzar con la parte de la interfaz, donde se visualizará cada sección de los gráficos, tablas, etc. Se declaró un ui.navset_card_underline, ejemplo:",
-    "crumbs": [
-      "Desarrollo de interfaz"
+      "Diccionarios"
     ]
   }
 ]

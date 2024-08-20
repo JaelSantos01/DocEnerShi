@@ -1,0 +1,6 @@
+---
+    pagetitle: funciones
+---
+
+# Funciones 
+A continuacion se explicaran y se mostraran las funciones que contiene dicho sistema, para completar el desarrollo de ejecucion de la interfaz:
