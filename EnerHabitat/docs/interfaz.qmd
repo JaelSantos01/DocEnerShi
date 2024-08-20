@@ -79,4 +79,8 @@ app_ui = ui.page_sidebar(
 ````
 ## Parte 3 
 Para comenzar con la parte de la interfaz, donde se visualizará un panel por cada sección de los gráficos, tablas, etc. 
-Se declaró un ui.navset_card_underline, ejemplo: https://shiny.posit.co/py/api/express/express.ui.navset_card_underline.html#examples.
+Se declaró un ui.navset_card_underline,
+
+::: {.callout-note appearance="simple"}
+[Ejemplo de uso ui.navset_card_underline:](https://shiny.posit.co/py/api/core/ui.navset_card_underline.html#).
+:::
