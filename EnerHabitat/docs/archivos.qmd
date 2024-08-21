@@ -1,0 +1,42 @@
+---
+    pagetitle: Archivos creados
+---
+
+# Archivos generados
+Para poder generar un código limpio con una estructura legible, se crearon varios archivos, pero de los más destacados y que tienen como función, contener información de la cual será extraida en la sección de funciones. 
+
+## Archivos .ini (lugares & materiales)
+Estos dos archivos generados tienen por nombre lugares.ini & materiales.ini, donde se almacenaran los valores que contiene cada lugar y cada material para después extraerse. 
+
+
+````markdown
+## Archivo de lugares.ini
+[Cuernavaca, Mor, Mex]
+lat = 18.8
+lon = -99.2
+altitude = 1280
+f_epw = data/MEX_MOR_Cuernavaca.epw
+
+[Zacatepec, Mor, Mex]
+lat = 18.5
+lon = -99.5
+altitude = 1480
+f_epw = data/MEX_MOR_Zacatepec.epw
+````
+
+````markdown
+## Archivo de materiales.ini
+
+[Cuernavaca, Mor, Mex]
+lat = 18.8
+lon = -99.2
+altitude = 1280
+f_epw = data/MEX_MOR_Cuernavaca.epw
+
+[Zacatepec, Mor, Mex]
+lat = 18.5
+lon = -99.5
+altitude = 1480
+f_epw = data/MEX_MOR_Zacatepec.epw
+````
+

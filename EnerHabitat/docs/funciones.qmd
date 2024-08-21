@@ -1,6 +1,276 @@
 ---
     pagetitle: funciones
+    css: /CSS/inicio.css
 ---
 
-# Funciones 
-A continuacion se explicaran y se mostraran las funciones que contiene dicho sistema, para completar el desarrollo de ejecucion de la interfaz:
+# Funciones generales
+A continuación se explicarán y se mostrarán las funciones que contiene dicho sistema, para completar el desarrollo de ejecución de la interfaz:
+
+## Función para cargar las características (.ini)
+Se generó una función para obtener todo el contenido del archivo de lugares .ini, donde dicho contenido será utilizado para la elaboración de los gráficos y maipulación de datos en el DataFrame. 
+
+````markdown
+def cargar_caracteristicas(lugar):
+    lugar_config = config[lugar]
+    return {
+        "lat": lugar_config.getfloat('lat'),
+        "lon": lugar_config.getfloat('lon'),
+        "alt": lugar_config.getint('altitude'),
+        "epw": lugar_config['f_epw']
+}
+````
+
+## Función para obtener la ruta del archivo epw
+
+````markdown
+def ruta(lugar):
+    f_epw = cargar_caracteristicas(lugar)
+    epwP = f_epw['epw']
+    divi = epwP.split("_")
+    pa = divi[0].replace('data/', '')
+    pais = pa.capitalize()
+    es = divi[1]
+    estado = es.capitalize()
+    ciudad = divi[2].replace('.epw', '')
+    ruta = f"./data/{pa}_{es}_{ciudad}.epw"
+    return ruta
+````
+
+## Función para generar los inputs de "controls_left"
+
+````markdown
+def controls_left(type,lugares,meses_dict, location, orientacion,absortance):
+    if type == 1 :
+        return ui.TagList(
+            ui.input_select("place", "Lugar:", 
+            choices=lugares),
+            ui.input_selectize("periodo", "Mes:", 
+            choices=list(meses_dict.keys())),
+            ui.input_select("ubicacion", "Ubicación:", 
+            choices=list(location.keys())),
+            ui.output_ui("ubicacion_orientacion")
+        )
+    elif type == 2 :
+        return ui.TagList(
+            ui.input_select("place", "Lugar:", 
+            choices=lugares),
+            ui.input_selectize("periodo", "Mes:", 
+            choices=list(meses_dict.keys())),
+            ui.input_select("ubicacion", "Ubicación:", 
+            choices=list(location.keys())),
+            ui.input_select("orientacion", "Orientación:", 
+            choices=list(orientacion.keys())),
+            ui.input_select("absortancia","Absortancia:", 
+            choices=list(absortance.keys())),
+            ui.output_ui("absortancia_f"),
+        )
+    return None
+````
+
+## Función para ocultar la orientación
+dependiendo la ubicacion
+
+````markdown
+def orientacion_disable(ubicacion,  orientacion, absortance):
+    if ubicacion == "Techo":
+        return ui.TagList(
+                ui.input_select("absortancia", "Absortancia:", 
+                choices=list(absortance.keys())),
+                ui.output_ui("absortancia_f")
+            ) 
+    else: 
+        return ui.TagList(
+                ui.input_select("orientacion", "Orientación:", 
+                choices=list(orientacion.keys())),
+                ui.input_select("absortancia", "Absortancia:", 
+                choices=list(absortance.keys())),
+                ui.output_ui("absortancia_f")
+        )  
+````
+
+## Función para colocar el valor de Absortancia
+
+````markdown
+def absortance_value(value):
+        return ui.TagList(
+            ui.input_numeric("absortancia_value", "", 
+            value=value, min=0.10, max=1.0, step=0.01)  
+        ) 
+````
+
+## Función para generar los inputs de "top_controls"
+
+````markdown
+def top_controls(type):
+    if type == 1:
+        return ui.TagList(
+            ui.input_select("Conditional", "Condición:", 
+            choices=["Sin aire acondicionado", "Con aire acondicionado"]),  
+        )
+    elif type == 2:
+        return ui.TagList(
+            ui.input_slider("capas", "Número de capas:", 1, 5, 1),
+            ui.input_select("Conditional", "Condición:", 
+            choices=["Sin aire acondicionado", "Con aire acondicionado"]),
+        )
+    return None
+````
+
+## Función para generar los inputs de "rigth_controls"
+
+````markdown
+def rigth_controls(type, materiales):
+    if type == 1:
+        return ui.TagList(
+            ui.output_ui("campos")
+        )
+    elif type == 2:
+        return ui.TagList(
+            ui.HTML('<img src="modelo.png" 
+            width="200" height="90">'),
+            ui.input_select("muro", "Material:", 
+            choices=materiales),
+            ui.layout_columns(
+                ui.input_numeric("e11", "e11", value=0.1),
+                ui.input_numeric("a11", "a11", value=0.1),
+            ),
+            ui.layout_columns(
+                ui.input_numeric("e21", "e21", value=0.1),
+                ui.input_numeric("a21", "a21", value=0.1),
+            ),
+            ui.layout_columns(
+                ui.input_numeric("e12", "e12", value=0.1),
+                ui.input_numeric("a12", "a12", value=0.1),
+            ),
+        )
+    return None
+````
+
+## Función para generar el número de sistemas 
+
+````markdown
+def f_sistemas(num):
+    if num > 5 or num < 1 or num is None:
+        modal_content = "Solo se permiten entre 1 y 5 
+        sistemas constructivos."
+        modal = ui.modal(modal_content, title="Error", 
+        easy_close=True)
+        ui.modal_show(modal)
+        return
+    else:
+        num1 = ui.TagList(
+            ui.accordion(
+                ui.accordion_panel(
+                    "Sistema constructivo 1:",
+                    ui.input_numeric("capa_1", 
+                    "Numero de capas:", value=1, min=1, max=7),
+                    ui.output_ui("num_capas1")
+                )
+            )
+        )
+        if num == 1:
+            return num1
+        elif num == 2:
+            return num1 + num2
+        elif num == 3:
+            return num1 + num2 + num3
+        elif num == 4:
+            return num1 + num2 + num3 + num4
+        elif num == 5:
+            return num1 + num2 + num3 + num4 + num5
+````
+
+
+## Función para generar el número de capas por sistema
+
+````markdown
+def info_capa1(capa, materiales, sistemas):
+    if capa > 7 or capa < 1 or capa is None:
+        modal_content = "Solo se permiten entre 1 y 7 capas."
+        modal = ui.modal(modal_content, title="Error", 
+        easy_close=True)
+        ui.modal_show(modal)
+        return
+    else:
+        capas_ui = []
+        for i in range(capa):
+            capas_ui.append(
+                ui.layout_columns(
+                    ui.input_numeric(f"espesor_SC1_{i+1}", 
+                    f"Espesor {i+1} SC 1:", value=0.010, max=0.9, 
+                    step=0.01, min=0.010),
+                    ui.input_select(f"material_SC1_{i+1}", 
+                    f"Material {i+1} SC 1:", choices=materiales)
+                )
+            )
+        return ui.TagList(*capas_ui) if capas_ui else ui.TagList()
+````
+
+## Función para generar "Temperatura"
+Está función fue creada para generar la gráfica de "Temperatura", donde nos visualza un grafico dependiendo los valores ingresados por el usuario, para generar un cálculo en base a ello. 
+
+````markdown
+def plot_T(dia):
+    fig = make_subplots(rows=1, cols=1)
+    df = dia.iloc[::600]
+    fig.add_trace(go.Scatter(x=df.index, y=df['Ta'], 
+    mode='lines', name='Ta', line=dict(color='black'))
+    , row=1, col=1)
+    fig.add_trace(go.Scatter(x=df.index, y=df['Tsa'], 
+    mode='lines', name='Tsa', line=dict(color='red')),
+    row=1, col=1)
+    fig.add_trace(go.Scatter(x=df.index, y=df['Tn'] + 
+    df['DeltaTn'], mode='lines',showlegend=False , 
+    line=dict(color='rgba(0,0,0,0)')),
+                row=1, col=1)
+    fig.add_trace(go.Scatter(x=df.index, y=df['Tn'] - 
+    df['DeltaTn'], mode='lines',showlegend=False , fill='tonexty', 
+    line=dict(color='rgba(0,0,0,0)'), fillcolor='rgba(0,255,0,0.3)'),
+                row=1, col=1)
+    fig.update_yaxes(title_text="Temperatura [°C]", row=1, col=1)
+    return fig
+````
+
+## Función para generar "Radiación"
+Al igual que la función anterior, está función fue creada para generar la gráfica de "Radiación", donde nos visualza un grafico dependiendo los valores ingresados por el usuario, para generar un cálculo en base a ello. 
+
+````markdown
+def plot_I(dia):
+    fig = make_subplots(rows=1, cols=1)
+    df = dia.iloc[::600]
+    fig.add_trace(go.Scatter(x=df.index, y=df['Ig'], mode='lines', name='Ig'), row=1, col=1)
+    fig.add_trace(go.Scatter(x=df.index, y=df['Ib'], mode='lines', name='Ib'), row=1, col=1)
+    fig.add_trace(go.Scatter(x=df.index, y=df['Id'], mode='lines', name='Id'), row=1, col=1)
+    fig.add_trace(go.Scatter(x=df.index, y=df['Is'], mode='lines', name='Is'), row=1, col=1)
+    fig.update_yaxes(title_text="Irradiancia [W/m²]", row=1, col=1)
+    return fig
+````
+
+## Función para generar una nueva línea (Ti)
+Esta función fue creada para generar una nueva línea llamada Ti, para la comprobación de que al momento de que el usuario de clic al botón "Correr", esta función sea llamada y así por cada sistema constructivo se calcula y genera una nueva Ti. 
+
+````markdown
+def plot_T_TI(dia):
+    fig = make_subplots(rows=1, cols=1)
+    df = dia.iloc[::600]
+    fig.add_trace(go.Scatter(x=df.index, y=df['Ta'], 
+    mode='lines', name='Ta', line=dict(color='black')), 
+    row=1, col=1)
+    fig.add_trace(go.Scatter(x=df.index, y=df['Tsa'], 
+    mode='lines', name='Tsa', line=dict(color='red')),
+    row=1, col=1)
+    fig.add_trace(go.Scatter(x=df.index, y=df['Ti'], 
+    mode='lines', name='Ti', line=dict(color='green')), 
+    row=1, col=1)
+    fig.add_trace(go.Scatter(x=df.index, y=df['Tn'] + 
+    df['DeltaTn'], mode='lines',showlegend=False , 
+    line=dict(color='rgba(0,0,0,0)')),
+                row=1, col=1)
+    fig.add_trace(go.Scatter(x=df.index, y=df['Tn'] - 
+    df['DeltaTn'], mode='lines',showlegend=False , 
+    fill='tonexty', line=dict(color='rgba(0,0,0,0)'), 
+    fillcolor='rgba(0,255,0,0.3)'),
+                row=1, col=1)
+    fig.update_yaxes(title_text="Temperatura [°C]", row=1, col=1)
+    return fig
+````

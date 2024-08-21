@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -31,7 +65,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
 <link href="../docs/server.html" rel="next">
-<link href="../docs/diccionaries.html" rel="prev">
+<link href="../docs/archivos.html" rel="prev">
 <link href="../images/logo_edited.png" rel="icon" type="image/png">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -71,6 +105,7 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
 
+<link rel="stylesheet" href="../CSS/inicio.css">
 </head>
 
 <body class="nav-sidebar floating nav-fixed">
@@ -106,7 +141,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../docs/funciones.html">Funciones para gráficas</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../docs/funciones.html">Funciones</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -138,8 +173,14 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../docs/archivos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Archivos creados</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../docs/funciones.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Funciones para gráficas</span></a>
+ <span class="menu-text">Funciones</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -164,7 +205,20 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#funciones" id="toc-funciones" class="nav-link active" data-scroll-target="#funciones">Funciones</a></li>
+  <li><a href="#funciones-generales" id="toc-funciones-generales" class="nav-link active" data-scroll-target="#funciones-generales">Funciones generales</a>
+  <ul class="collapse">
+  <li><a href="#funcion-para-cargar-las-características-.ini" id="toc-funcion-para-cargar-las-características-.ini" class="nav-link" data-scroll-target="#funcion-para-cargar-las-características-.ini">Funcion para cargar las características (.ini)</a></li>
+  <li><a href="#función-para-obtener-la-ruta-del-archivo-epw" id="toc-función-para-obtener-la-ruta-del-archivo-epw" class="nav-link" data-scroll-target="#función-para-obtener-la-ruta-del-archivo-epw">Función para obtener la ruta del archivo epw</a></li>
+  <li><a href="#función-para-generar-los-inputs-de-controls_left" id="toc-función-para-generar-los-inputs-de-controls_left" class="nav-link" data-scroll-target="#función-para-generar-los-inputs-de-controls_left">Función para generar los inputs de “controls_left”</a></li>
+  <li><a href="#función-para-ocultar-la-orientación" id="toc-función-para-ocultar-la-orientación" class="nav-link" data-scroll-target="#función-para-ocultar-la-orientación">Función para ocultar la orientación</a></li>
+  <li><a href="#función-para-colocar-el-valor-de-absortancia" id="toc-función-para-colocar-el-valor-de-absortancia" class="nav-link" data-scroll-target="#función-para-colocar-el-valor-de-absortancia">Función para colocar el valor de Absortancia</a></li>
+  <li><a href="#función-para-generar-los-inputs-de-top_controls" id="toc-función-para-generar-los-inputs-de-top_controls" class="nav-link" data-scroll-target="#función-para-generar-los-inputs-de-top_controls">Función para generar los inputs de “top_controls”</a></li>
+  <li><a href="#función-para-generar-los-inputs-de-rigth_controls" id="toc-función-para-generar-los-inputs-de-rigth_controls" class="nav-link" data-scroll-target="#función-para-generar-los-inputs-de-rigth_controls">Función para generar los inputs de “rigth_controls”</a></li>
+  <li><a href="#función-para-generar-el-número-de-sistemas" id="toc-función-para-generar-el-número-de-sistemas" class="nav-link" data-scroll-target="#función-para-generar-el-número-de-sistemas">Función para generar el número de sistemas</a></li>
+  <li><a href="#función-para-generar-el-número-de-capas-por-sistema" id="toc-función-para-generar-el-número-de-capas-por-sistema" class="nav-link" data-scroll-target="#función-para-generar-el-número-de-capas-por-sistema">Función para generar el número de capas por sistema</a></li>
+  <li><a href="#función-para-generar-temperatura" id="toc-función-para-generar-temperatura" class="nav-link" data-scroll-target="#función-para-generar-temperatura">Función para generar “Temperatura”</a></li>
+  <li><a href="#función-para-generar-radiación" id="toc-función-para-generar-radiación" class="nav-link" data-scroll-target="#función-para-generar-radiación">Función para generar “Radiación”</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -174,11 +228,228 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<section id="funciones" class="level1">
-<h1>Funciones</h1>
-<p>A continuacion se explicaran y se mostraran las funciones que contiene dicho sistema, para completar el desarrollo de ejecucion de la interfaz:</p>
+<section id="funciones-generales" class="level1">
+<h1>Funciones generales</h1>
+<p>A continuación se explicarán y se mostrarán las funciones que contiene dicho sistema, para completar el desarrollo de ejecución de la interfaz:</p>
+<section id="funcion-para-cargar-las-características-.ini" class="level2">
+<h2 class="anchored" data-anchor-id="funcion-para-cargar-las-características-.ini">Funcion para cargar las características (.ini)</h2>
+<p>Se generó una función para obtener todo el contenido del archivo de lugares .ini, donde dicho contenido será utilizado para la elaboración de los gráficos y maipulación de datos en el DataFrame.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>def cargar_caracteristicas(lugar):</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    lugar_config = config<span class="co">[</span><span class="ot">lugar</span><span class="co">]</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    return {</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>        "lat": lugar_config.getfloat('lat'),</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>        "lon": lugar_config.getfloat('lon'),</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>        "alt": lugar_config.getint('altitude'),</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>        "epw": lugar_config<span class="co">[</span><span class="ot">'f_epw'</span><span class="co">]</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="función-para-obtener-la-ruta-del-archivo-epw" class="level2">
+<h2 class="anchored" data-anchor-id="función-para-obtener-la-ruta-del-archivo-epw">Función para obtener la ruta del archivo epw</h2>
+<div class="sourceCode" id="cb2"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>def ruta(lugar):</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    f_epw = cargar_caracteristicas(lugar)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    epwP = f_epw<span class="co">[</span><span class="ot">'epw'</span><span class="co">]</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    divi = epwP.split("_")</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    pa = divi<span class="co">[</span><span class="ot">0</span><span class="co">]</span>.replace('data/', '')</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    pais = pa.capitalize()</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    es = divi<span class="co">[</span><span class="ot">1</span><span class="co">]</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    estado = es.capitalize()</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    ciudad = divi<span class="co">[</span><span class="ot">2</span><span class="co">]</span>.replace('.epw', '')</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    ruta = f"./data/{pa}_{es}_{ciudad}.epw"</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    return ruta</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="función-para-generar-los-inputs-de-controls_left" class="level2">
+<h2 class="anchored" data-anchor-id="función-para-generar-los-inputs-de-controls_left">Función para generar los inputs de “controls_left”</h2>
+<div class="sourceCode" id="cb3"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>def controls_left(type,lugares,meses_dict, location, orientacion,absortance):</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    if type == 1 :</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>        return ui.TagList(</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>            ui.input_select("place", "Lugar:", </span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>            choices=lugares),</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>            ui.input_selectize("periodo", "Mes:", </span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>            choices=list(meses_dict.keys())),</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>            ui.input_select("ubicacion", "Ubicación:", </span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>            choices=list(location.keys())),</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>            ui.output_ui("ubicacion_orientacion")</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    elif type == 2 :</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>        return ui.TagList(</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>            ui.input_select("place", "Lugar:", </span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>            choices=lugares),</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>            ui.input_selectize("periodo", "Mes:", </span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>            choices=list(meses_dict.keys())),</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>            ui.input_select("ubicacion", "Ubicación:", </span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>            choices=list(location.keys())),</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>            ui.input_select("orientacion", "Orientación:", </span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>            choices=list(orientacion.keys())),</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>            ui.input_select("absortancia","Absortancia:", </span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>            choices=list(absortance.keys())),</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>            ui.output_ui("absortancia_f"),</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>    return None</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="función-para-ocultar-la-orientación" class="level2">
+<h2 class="anchored" data-anchor-id="función-para-ocultar-la-orientación">Función para ocultar la orientación</h2>
+<p>dependiendo la ubicacion</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>def orientacion_disable(ubicacion,  orientacion, absortance):</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    if ubicacion == "Techo":</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>        return ui.TagList(</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>                ui.input_select("absortancia", "Absortancia:", </span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>                choices=list(absortance.keys())),</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>                ui.output_ui("absortancia_f")</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>            ) </span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    else: </span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>        return ui.TagList(</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>                ui.input_select("orientacion", "Orientación:", </span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>                choices=list(orientacion.keys())),</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>                ui.input_select("absortancia", "Absortancia:", </span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>                choices=list(absortance.keys())),</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>                ui.output_ui("absortancia_f")</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>        )  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="función-para-colocar-el-valor-de-absortancia" class="level2">
+<h2 class="anchored" data-anchor-id="función-para-colocar-el-valor-de-absortancia">Función para colocar el valor de Absortancia</h2>
+<div class="sourceCode" id="cb5"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>def absortance_value(value):</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>        return ui.TagList(</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>            ui.input_numeric("absortancia_value", "", </span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>            value=value, min=0.10, max=1.0, step=0.01)  </span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>        ) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="función-para-generar-los-inputs-de-top_controls" class="level2">
+<h2 class="anchored" data-anchor-id="función-para-generar-los-inputs-de-top_controls">Función para generar los inputs de “top_controls”</h2>
+<div class="sourceCode" id="cb6"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>def top_controls(type):</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    if type == 1:</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>        return ui.TagList(</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>            ui.input_select("Conditional", "Condición:", </span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>            choices=<span class="co">[</span><span class="ot">"Sin aire acondicionado", "Con aire acondicionado"</span><span class="co">]</span>),  </span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    elif type == 2:</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>        return ui.TagList(</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>            ui.input_slider("capas", "Número de capas:", 1, 5, 1),</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>            ui.input_select("Conditional", "Condición:", </span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>            choices=<span class="co">[</span><span class="ot">"Sin aire acondicionado", "Con aire acondicionado"</span><span class="co">]</span>),</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>    return None</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="función-para-generar-los-inputs-de-rigth_controls" class="level2">
+<h2 class="anchored" data-anchor-id="función-para-generar-los-inputs-de-rigth_controls">Función para generar los inputs de “rigth_controls”</h2>
+<div class="sourceCode" id="cb7"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>def rigth_controls(type, materiales):</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    if type == 1:</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>        return ui.TagList(</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>            ui.output_ui("campos")</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    elif type == 2:</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>        return ui.TagList(</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>            ui.HTML('&lt;img src="modelo.png" </span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>            width="200" height="90"&gt;'),</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>            ui.input_select("muro", "Material:", </span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>            choices=materiales),</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>            ui.layout_columns(</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>                ui.input_numeric("e11", "e11", value=0.1),</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>                ui.input_numeric("a11", "a11", value=0.1),</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>            ),</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>            ui.layout_columns(</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>                ui.input_numeric("e21", "e21", value=0.1),</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>                ui.input_numeric("a21", "a21", value=0.1),</span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>            ),</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>            ui.layout_columns(</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>                ui.input_numeric("e12", "e12", value=0.1),</span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>                ui.input_numeric("a12", "a12", value=0.1),</span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>            ),</span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>    return None</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="función-para-generar-el-número-de-sistemas" class="level2">
+<h2 class="anchored" data-anchor-id="función-para-generar-el-número-de-sistemas">Función para generar el número de sistemas</h2>
+<div class="sourceCode" id="cb8"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>def f_sistemas(num):</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    if num &gt; 5 or num &lt; 1 or num is None:</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>        modal_content = "Solo se permiten entre 1 y 5 </span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>        sistemas constructivos."</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>        modal = ui.modal(modal_content, title="Error", </span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>        easy_close=True)</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>        ui.modal_show(modal)</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>        return</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    else:</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>        num1 = ui.TagList(</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>            ui.accordion(</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>                ui.accordion_panel(</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>                    "Sistema constructivo 1:",</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>                    ui.input_numeric("capa_1", </span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>                    "Numero de capas:", value=1, min=1, max=7),</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>                    ui.output_ui("num_capas1")</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>                )</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>            )</span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>        if num == 1:</span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>            return num1</span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>        elif num == 2:</span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>            return num1 + num2</span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>        elif num == 3:</span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>            return num1 + num2 + num3</span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>        elif num == 4:</span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>            return num1 + num2 + num3 + num4</span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a>        elif num == 5:</span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>            return num1 + num2 + num3 + num4 + num5</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="función-para-generar-el-número-de-capas-por-sistema" class="level2">
+<h2 class="anchored" data-anchor-id="función-para-generar-el-número-de-capas-por-sistema">Función para generar el número de capas por sistema</h2>
+<div class="sourceCode" id="cb9"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>def info_capa1(capa, materiales, sistemas):</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    if capa &gt; 7 or capa &lt; 1 or capa is None:</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>        modal_content = "Solo se permiten entre 1 y 7 capas."</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>        modal = ui.modal(modal_content, title="Error", </span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>        easy_close=True)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>        ui.modal_show(modal)</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>        return</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    else:</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>        capas_ui = []</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>        for i in range(capa):</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>            capas_ui.append(</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>                ui.layout_columns(</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>                    ui.input_numeric(f"espesor_SC1_{i+1}", </span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>                    f"Espesor {i+1} SC 1:", value=0.010, max=0.9, </span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>                    step=0.01, min=0.010),</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>                    ui.input_select(f"material_SC1_{i+1}", </span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>                    f"Material {i+1} SC 1:", choices=materiales)</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>                )</span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>            )</span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>        return ui.TagList(*capas_ui) if capas_ui else ui.TagList()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="función-para-generar-temperatura" class="level2">
+<h2 class="anchored" data-anchor-id="función-para-generar-temperatura">Función para generar “Temperatura”</h2>
+<p>Está función fue creada para generar la gráfica de “Temperatura”, donde nos visualza un grafico dependiendo los valores ingresados por el usuario, para generar un cálculo en base a ello.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>def plot_T(dia):</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    fig = make_subplots(rows=1, cols=1)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    df = dia.iloc<span class="co">[</span><span class="ot">::600</span><span class="co">]</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    fig.add_trace(go.Scatter(x=df.index, y=df<span class="co">[</span><span class="ot">'Ta'</span><span class="co">]</span>, </span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    mode='lines', name='Ta', line=dict(color='black'))</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    , row=1, col=1)</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    fig.add_trace(go.Scatter(x=df.index, y=df<span class="co">[</span><span class="ot">'Tsa'</span><span class="co">]</span>, </span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    mode='lines', name='Tsa', line=dict(color='red')),</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    row=1, col=1)</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>    fig.add_trace(go.Scatter(x=df.index, y=df<span class="co">[</span><span class="ot">'Tn'</span><span class="co">]</span> + </span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>    df<span class="co">[</span><span class="ot">'DeltaTn'</span><span class="co">]</span>, mode='lines',showlegend=False , </span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>    line=dict(color='rgba(0,0,0,0)')),</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>                row=1, col=1)</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>    fig.add_trace(go.Scatter(x=df.index, y=df<span class="co">[</span><span class="ot">'Tn'</span><span class="co">]</span> - </span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>    df<span class="co">[</span><span class="ot">'DeltaTn'</span><span class="co">]</span>, mode='lines',showlegend=False , fill='tonexty', </span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>    line=dict(color='rgba(0,0,0,0)'), fillcolor='rgba(0,255,0,0.3)'),</span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>                row=1, col=1)</span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>    fig.update_yaxes(title_text="Temperatura <span class="co">[</span><span class="ot">°C</span><span class="co">]</span>", row=1, col=1)</span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>    return fig</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="función-para-generar-radiación" class="level2">
+<h2 class="anchored" data-anchor-id="función-para-generar-radiación">Función para generar “Radiación”</h2>
+<p>Al igual que la función anterior, está función fue creada para generar la gráfica de “Radiación”, donde nos visualza un grafico dependiendo los valores ingresados por el usuario, para generar un cálculo en base a ello.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>def plot_I(dia):</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    fig = make_subplots(rows=1, cols=1)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    df = dia.iloc<span class="co">[</span><span class="ot">::600</span><span class="co">]</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    fig.add_trace(go.Scatter(x=df.index, y=df<span class="co">[</span><span class="ot">'Ig'</span><span class="co">]</span>, mode='lines', name='Ig'), row=1, col=1)</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    fig.add_trace(go.Scatter(x=df.index, y=df<span class="co">[</span><span class="ot">'Ib'</span><span class="co">]</span>, mode='lines', name='Ib'), row=1, col=1)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    fig.add_trace(go.Scatter(x=df.index, y=df<span class="co">[</span><span class="ot">'Id'</span><span class="co">]</span>, mode='lines', name='Id'), row=1, col=1)</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    fig.add_trace(go.Scatter(x=df.index, y=df<span class="co">[</span><span class="ot">'Is'</span><span class="co">]</span>, mode='lines', name='Is'), row=1, col=1)</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    fig.update_yaxes(title_text="Irradiancia <span class="co">[</span><span class="ot">W/m²</span><span class="co">]</span>", row=1, col=1)</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>    return fig</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -604,8 +875,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../docs/diccionaries.html" class="pagination-link" aria-label="Diccionarios">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Diccionarios</span>
+      <a href="../docs/archivos.html" class="pagination-link" aria-label="Archivos creados">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Archivos creados</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">

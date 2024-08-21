@@ -39,7 +39,9 @@ website:
           href: docs/interfaz.qmd
         - text: "Diccionarios"
           href: docs/diccionaries.qmd
-        - text: "Funciones para gráficas"
+        - text: "Archivos creados"
+          href: docs/archivos.qmd
+        - text: "Funciones"
           href: docs/funciones.qmd
         - text: "Funciones para renderizar"
           href: docs/server.qmd

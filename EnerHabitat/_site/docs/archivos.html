@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Diccionarios – Doc de Ener-Habitat</title>
+<title>Archivos creados – Doc de Ener-Habitat</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -65,7 +65,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
 <link href="../docs/funciones.html" rel="next">
-<link href="../docs/interfaz.html" rel="prev">
+<link href="../docs/diccionaries.html" rel="prev">
 <link href="../images/logo_edited.png" rel="icon" type="image/png">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -140,7 +140,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../docs/diccionaries.html">Diccionarios</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../docs/archivos.html">Archivos creados</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -166,14 +166,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../docs/diccionaries.html" class="sidebar-item-text sidebar-link active">
+  <a href="../docs/diccionaries.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Diccionarios</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../docs/archivos.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Archivos creados</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../docs/funciones.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Funciones para gráficas</span></a>
+ <span class="menu-text">Funciones</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -198,11 +204,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#diccionarios" id="toc-diccionarios" class="nav-link active" data-scroll-target="#diccionarios">Diccionarios</a>
+  <li><a href="#archivos-generados" id="toc-archivos-generados" class="nav-link active" data-scroll-target="#archivos-generados">Archivos generados</a>
   <ul class="collapse">
-  <li><a href="#diccionario-para-seleccionar-el-mes" id="toc-diccionario-para-seleccionar-el-mes" class="nav-link" data-scroll-target="#diccionario-para-seleccionar-el-mes">Diccionario para seleccionar el Mes</a></li>
-  <li><a href="#diccionario-para-la-absortancia" id="toc-diccionario-para-la-absortancia" class="nav-link" data-scroll-target="#diccionario-para-la-absortancia">Diccionario para la Absortancia</a></li>
-  <li><a href="#diccionarios-ubicacion-orientacion-y-tipo-de-sistema" id="toc-diccionarios-ubicacion-orientacion-y-tipo-de-sistema" class="nav-link" data-scroll-target="#diccionarios-ubicacion-orientacion-y-tipo-de-sistema">Diccionarios ubicacion, orientacion y tipo de sistema</a></li>
+  <li><a href="#archivos-.ini-lugares-materiales" id="toc-archivos-.ini-lugares-materiales" class="nav-link" data-scroll-target="#archivos-.ini-lugares-materiales">Archivos .ini (lugares &amp; materiales)</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -213,90 +217,37 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
-<section id="diccionarios" class="level1">
-<h1>Diccionarios</h1>
-<p>Un diccionario en Python es una estructura de datos que permite almacenar pares de clave-valor. Cada clave en un diccionario es única y se usa para acceder al valor asociado. Los diccionarios son muy versátiles y se utilizan comúnmente para representar datos estructurados y realizar búsquedas rápidas.</p>
-<p><img src="..\images/diccionarios.JPG" class="ejedicci-image img-fluid" alt="ejemplo de un diccionario"></p>
-<p>A continuacion se mostraran la lista de diccionarios que se crearon para la funcionalidad del sistema:</p>
-<section id="diccionario-para-seleccionar-el-mes" class="level2">
-<h2 class="anchored" data-anchor-id="diccionario-para-seleccionar-el-mes">Diccionario para seleccionar el Mes</h2>
-<p>Este diccionario se genero para mostrar al usuario la lista de los meses y a la vez obtener su valor para generar los graficos dependiendo el mes que se seleccione.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>meses_dict = {</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    "Enero": "01",</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    "Febrero": "02",</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    "Marzo": "03",</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    "Abril": "04",</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    "Mayo": "05",</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    "Junio": "06",</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    "Julio": "07",</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    "Agosto": "08",</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    "Septiembre": "09",       </span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    "Octubre": "10",</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    "Noviembre": "11",</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    "Diciembre": "12",</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>A continuacion se muestra su uso en el sistema:</p>
-<video autoplay="" muted="" playsinline="" loop="" width="600px;">
-<source src="../images/mes.webm" type="video/webm">
-</video>
-</section>
-<section id="diccionario-para-la-absortancia" class="level2">
-<h2 class="anchored" data-anchor-id="diccionario-para-la-absortancia">Diccionario para la Absortancia</h2>
-<p>Al igual que el diccionario anterior, su funcionalidad es que el texto (clave), se mostrara al usuario para que este pudiera seleccionar la absortancia de su preferencia para realizar el calculo en base al valor que contenga.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>Absortancia = {</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    "Aluminio pulido (0.10)": 0.10,</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    "Aluminio oxidado (0.15)": 0.15,</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    "Impermeabilizante o pintura blanca nueva (0.15)": 0.15,</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    "Impermeabilizante o pintura blanca (0.20)": 0.20,</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    "Pintura aluminio (0.2)": 0.2,</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    "Lámina galvanizada brillante (0.25)": 0.25,</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    "Pintura colores claros (0.3)": 0.3,</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    "Recubrimiento elastomérico blanco (0.30)": 0.30,</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    "Acero (0.45)" : 0.45,</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    "Pintura colores intermedios (0.50)": 0.50,</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    "Concreto claro o adocreto claro (0.60)": 0.60,</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    "Ladrillo rojo (0.65)": 0.65,</span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    "Impermeabilizante rojo terracota (0.70)": 0.70,</span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    "Lámina galvanizada (0.7)": 0.7,</span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    "Pintura colores oscuros (0.7)": 0.7,</span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    "Teja roja (0.7)": 0.7,</span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    "Concreto (0.7)": 0.7,</span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    "Impermeabilizante o pintura negra (0.90)": 0.90,</span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>    "Asfalto nuevo (0.95)": 0.95,</span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>    "Impermeabilizante o pintura negra mate nueva (0.95)": 0.95,</span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>A continuacion se muestra su uso en el sistema:</p>
-<video autoplay="" muted="" playsinline="" loop="" width="600px;">
-<source src="../images/absor.webm" type="video/webm">
-</video>
-</section>
-<section id="diccionarios-ubicacion-orientacion-y-tipo-de-sistema" class="level2">
-<h2 class="anchored" data-anchor-id="diccionarios-ubicacion-orientacion-y-tipo-de-sistema">Diccionarios ubicacion, orientacion y tipo de sistema</h2>
-<p>Por ultimo se crearon los diccionarios correspondientes a la ubicacion del sistema constructivo, orientacion del mismo y el tipo de sistema a analizar.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>location={</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    "Muro": 90,</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    "Techo": 0,</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>orientacion = {</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    "Norte": 0,</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    "Noreste": 45,</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    "Este": 90, </span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    "Sureste": 135, </span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    "Sur": 180,</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    "Suroeste": 225, </span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    "Oeste": 270, </span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    "Noroeste": 315,</span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>type_sistem = {</span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    "Con capa homogenea" : 1,</span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>    "Sin capa homogenea" : 2,</span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>A continuacion se muestra su uso en el sistema:</p>
-<video autoplay="" muted="" playsinline="" loop="" width="600px;">
-<source src="../images/lotip.webm" type="video/webm">
-</video>
+<section id="archivos-generados" class="level1">
+<h1>Archivos generados</h1>
+<p>Para poder generar un código limpio con una estructura legible, se crearon varios archivos, pero de los más destacados y que tienen como función, contener información de la cual será extraida en la sección de funciones.</p>
+<section id="archivos-.ini-lugares-materiales" class="level2">
+<h2 class="anchored" data-anchor-id="archivos-.ini-lugares-materiales">Archivos .ini (lugares &amp; materiales)</h2>
+<p>Estos dos archivos generados tienen por nombre lugares.ini &amp; materiales.ini, donde se almacenaran los valores que contiene cada lugar y cada material para después extraerse.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">## Archivo de lugares.ini</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Cuernavaca, Mor, Mex</span><span class="co">]</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>lat = 18.8</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>lon = -99.2</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>altitude = 1280</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>f_epw = data/MEX_MOR_Cuernavaca.epw</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Zacatepec, Mor, Mex</span><span class="co">]</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>lat = 18.5</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>lon = -99.5</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>altitude = 1480</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>f_epw = data/MEX_MOR_Zacatepec.epw</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">## Archivo de materiales.ini</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Cuernavaca, Mor, Mex</span><span class="co">]</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>lat = 18.8</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>lon = -99.2</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>altitude = 1280</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>f_epw = data/MEX_MOR_Cuernavaca.epw</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Zacatepec, Mor, Mex</span><span class="co">]</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>lat = 18.5</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>lon = -99.5</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>altitude = 1480</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>f_epw = data/MEX_MOR_Zacatepec.epw</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 
 </section>
@@ -725,13 +676,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../docs/interfaz.html" class="pagination-link" aria-label="Desarrollo de interfaz">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Desarrollo de interfaz</span>
+      <a href="../docs/diccionaries.html" class="pagination-link" aria-label="Diccionarios">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Diccionarios</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../docs/funciones.html" class="pagination-link" aria-label="Funciones para gráficas">
-        <span class="nav-page-text">Funciones para gráficas</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../docs/funciones.html" class="pagination-link" aria-label="Funciones">
+        <span class="nav-page-text">Funciones</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

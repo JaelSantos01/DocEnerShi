@@ -1,0 +1,6 @@
+---
+    pagetitle: Renderizar en el server
+---
+
+# Renderizar en el server
+Las siguiente funciones que se mostrarán y explicarán, 
