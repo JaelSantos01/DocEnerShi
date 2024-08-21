@@ -179,13 +179,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../docs/funciones.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Funciones</span></a>
+ <span class="menu-text">Funciones generales</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../docs/server.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Funciones para renderizar</span></a>
+ <span class="menu-text">Funciones del server</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -207,6 +207,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#archivos-generados" id="toc-archivos-generados" class="nav-link active" data-scroll-target="#archivos-generados">Archivos generados</a>
   <ul class="collapse">
   <li><a href="#archivos-.ini-lugares-materiales" id="toc-archivos-.ini-lugares-materiales" class="nav-link" data-scroll-target="#archivos-.ini-lugares-materiales">Archivos .ini (lugares &amp; materiales)</a></li>
+  <li><a href="#arcivos-epw" id="toc-arcivos-epw" class="nav-link" data-scroll-target="#arcivos-epw">Arcivos EPW</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -219,7 +220,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="archivos-generados" class="level1">
 <h1>Archivos generados</h1>
-<p>Para poder generar un código limpio con una estructura legible, se crearon varios archivos, pero de los más destacados y que tienen como función, contener información de la cual será extraida en la sección de funciones.</p>
+<p>Para poder generar un código limpio con una estructura legible, se crearon varios archivos, pero de los más destacados y que tienen una función esencial en el sistema, son los siguientes archivos que almacenan información de la cual será extraida en la sección de “funciones generales”.</p>
 <section id="archivos-.ini-lugares-materiales" class="level2">
 <h2 class="anchored" data-anchor-id="archivos-.ini-lugares-materiales">Archivos .ini (lugares &amp; materiales)</h2>
 <p>Estos dos archivos generados tienen por nombre lugares.ini &amp; materiales.ini, donde se almacenaran los valores que contiene cada lugar y cada material para después extraerse.</p>
@@ -248,6 +249,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>lon = -99.5</span>
 <span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>altitude = 1480</span>
 <span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>f_epw = data/MEX_MOR_Zacatepec.epw</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="arcivos-epw" class="level2">
+<h2 class="anchored" data-anchor-id="arcivos-epw">Arcivos EPW</h2>
+<p>Estos archivos contienen los datos que serán usados para poder calcular y generar las simulaciones correctamente, ya que contienen datos meteorológicos que se utilizan comúnmente en simulaciones energéticas y de rendimiento ambiental,para modelar las condiciones climáticas de un sitio específico.</p>
+<p>Ejemplo de archivos EPW:</p>
+<p><img src="..\images/data.png" class="epw-image img-fluid" alt="Ejemplo de la data de un EPW"></p>
 
 
 </section>
@@ -681,8 +688,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../docs/funciones.html" class="pagination-link" aria-label="Funciones">
-        <span class="nav-page-text">Funciones</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../docs/funciones.html" class="pagination-link" aria-label="Funciones generales">
+        <span class="nav-page-text">Funciones generales</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

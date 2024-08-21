@@ -51,7 +51,7 @@
     "href": "docs/index.html",
     "title": "Desarrollo de Ener-Habitat",
     "section": "",
-    "text": "Este sistema fue desarrollado con el sistema operativo Linux de Ubuntu 22.04.4, en conjunto con la herramienta de Shiny con un enfoque para Python para la elaboración de funciones y de la interfaz.\n \nBrevemente se describirá la herramienta que se utilizó:\n\n\nEsta herramienta es eficaz, reactiva y robusta, Shiny es de ejecución reactiva, dicha funcionalidad sirve para que los resultados se renderizen solo cuando cambian sus componentes ascendentes, capaz de admitir todo desde aplicaciones web simples a complejas (Foundation, Python, 2023).\nUna aplicación Shiny enfocada en Python es “una página web interactiva (ui) impulsada por una sesión de Python en vivo ejecutada por un servidor”, esto permite que los usuarios pueden manipular la interfaz de manera que el servidor actualice las pantallas del usuario mediante la ejecución de código Python, (CC BY SA Posit Software, 2024).",
+    "text": "Este sistema fue desarrollado con el sistema operativo Linux de Ubuntu 22.04.4, en conjunto con la herramienta de Shiny con un enfoque para Python para la elaboración de funciones y de la interfaz.\n\nBrevemente se describirá la herramienta que se utilizó:\n\n\nEsta herramienta es eficaz, reactiva y robusta, Shiny es de ejecución reactiva, dicha funcionalidad sirve para que los resultados se renderizen solo cuando cambian sus componentes ascendentes, capaz de admitir todo desde aplicaciones web simples a complejas (Foundation, Python, 2023).\nUna aplicación Shiny enfocada en Python es “una página web interactiva (ui) impulsada por una sesión de Python en vivo ejecutada por un servidor”, esto permite que los usuarios pueden manipular la interfaz de manera que el servidor actualice las pantallas del usuario mediante la ejecución de código Python, (CC BY SA Posit Software, 2024).",
     "crumbs": [
       "Desarrollo de Ener-Habitat"
     ]
@@ -81,7 +81,7 @@
     "href": "docs/funciones.html",
     "title": "Funciones generales",
     "section": "",
-    "text": "A continuación se explicarán y se mostrarán las funciones que contiene dicho sistema, para completar el desarrollo de ejecución de la interfaz:\n\n\nSe generó una función para obtener todo el contenido del archivo de lugares .ini, donde dicho contenido será utilizado para la elaboración de los gráficos y maipulación de datos en el DataFrame.\ndef cargar_caracteristicas(lugar):\n    lugar_config = config[lugar]\n    return {\n        \"lat\": lugar_config.getfloat('lat'),\n        \"lon\": lugar_config.getfloat('lon'),\n        \"alt\": lugar_config.getint('altitude'),\n        \"epw\": lugar_config['f_epw']\n}\n\n\n\ndef ruta(lugar):\n    f_epw = cargar_caracteristicas(lugar)\n    epwP = f_epw['epw']\n    divi = epwP.split(\"_\")\n    pa = divi[0].replace('data/', '')\n    pais = pa.capitalize()\n    es = divi[1]\n    estado = es.capitalize()\n    ciudad = divi[2].replace('.epw', '')\n    ruta = f\"./data/{pa}_{es}_{ciudad}.epw\"\n    return ruta\n\n\n\ndef controls_left(type,lugares,meses_dict, location, orientacion,absortance):\n    if type == 1 :\n        return ui.TagList(\n            ui.input_select(\"place\", \"Lugar:\", \n            choices=lugares),\n            ui.input_selectize(\"periodo\", \"Mes:\", \n            choices=list(meses_dict.keys())),\n            ui.input_select(\"ubicacion\", \"Ubicación:\", \n            choices=list(location.keys())),\n            ui.output_ui(\"ubicacion_orientacion\")\n        )\n    elif type == 2 :\n        return ui.TagList(\n            ui.input_select(\"place\", \"Lugar:\", \n            choices=lugares),\n            ui.input_selectize(\"periodo\", \"Mes:\", \n            choices=list(meses_dict.keys())),\n            ui.input_select(\"ubicacion\", \"Ubicación:\", \n            choices=list(location.keys())),\n            ui.input_select(\"orientacion\", \"Orientación:\", \n            choices=list(orientacion.keys())),\n            ui.input_select(\"absortancia\",\"Absortancia:\", \n            choices=list(absortance.keys())),\n            ui.output_ui(\"absortancia_f\"),\n        )\n    return None\n\n\n\ndependiendo la ubicacion\ndef orientacion_disable(ubicacion,  orientacion, absortance):\n    if ubicacion == \"Techo\":\n        return ui.TagList(\n                ui.input_select(\"absortancia\", \"Absortancia:\", \n                choices=list(absortance.keys())),\n                ui.output_ui(\"absortancia_f\")\n            ) \n    else: \n        return ui.TagList(\n                ui.input_select(\"orientacion\", \"Orientación:\", \n                choices=list(orientacion.keys())),\n                ui.input_select(\"absortancia\", \"Absortancia:\", \n                choices=list(absortance.keys())),\n                ui.output_ui(\"absortancia_f\")\n        )  \n\n\n\ndef absortance_value(value):\n        return ui.TagList(\n            ui.input_numeric(\"absortancia_value\", \"\", \n            value=value, min=0.10, max=1.0, step=0.01)  \n        ) \n\n\n\ndef top_controls(type):\n    if type == 1:\n        return ui.TagList(\n            ui.input_select(\"Conditional\", \"Condición:\", \n            choices=[\"Sin aire acondicionado\", \"Con aire acondicionado\"]),  \n        )\n    elif type == 2:\n        return ui.TagList(\n            ui.input_slider(\"capas\", \"Número de capas:\", 1, 5, 1),\n            ui.input_select(\"Conditional\", \"Condición:\", \n            choices=[\"Sin aire acondicionado\", \"Con aire acondicionado\"]),\n        )\n    return None\n\n\n\ndef rigth_controls(type, materiales):\n    if type == 1:\n        return ui.TagList(\n            ui.output_ui(\"campos\")\n        )\n    elif type == 2:\n        return ui.TagList(\n            ui.HTML('&lt;img src=\"modelo.png\" \n            width=\"200\" height=\"90\"&gt;'),\n            ui.input_select(\"muro\", \"Material:\", \n            choices=materiales),\n            ui.layout_columns(\n                ui.input_numeric(\"e11\", \"e11\", value=0.1),\n                ui.input_numeric(\"a11\", \"a11\", value=0.1),\n            ),\n            ui.layout_columns(\n                ui.input_numeric(\"e21\", \"e21\", value=0.1),\n                ui.input_numeric(\"a21\", \"a21\", value=0.1),\n            ),\n            ui.layout_columns(\n                ui.input_numeric(\"e12\", \"e12\", value=0.1),\n                ui.input_numeric(\"a12\", \"a12\", value=0.1),\n            ),\n        )\n    return None\n\n\n\ndef f_sistemas(num):\n    if num &gt; 5 or num &lt; 1 or num is None:\n        modal_content = \"Solo se permiten entre 1 y 5 \n        sistemas constructivos.\"\n        modal = ui.modal(modal_content, title=\"Error\", \n        easy_close=True)\n        ui.modal_show(modal)\n        return\n    else:\n        num1 = ui.TagList(\n            ui.accordion(\n                ui.accordion_panel(\n                    \"Sistema constructivo 1:\",\n                    ui.input_numeric(\"capa_1\", \n                    \"Numero de capas:\", value=1, min=1, max=7),\n                    ui.output_ui(\"num_capas1\")\n                )\n            )\n        )\n        if num == 1:\n            return num1\n        elif num == 2:\n            return num1 + num2\n        elif num == 3:\n            return num1 + num2 + num3\n        elif num == 4:\n            return num1 + num2 + num3 + num4\n        elif num == 5:\n            return num1 + num2 + num3 + num4 + num5\n\n\n\ndef info_capa1(capa, materiales, sistemas):\n    if capa &gt; 7 or capa &lt; 1 or capa is None:\n        modal_content = \"Solo se permiten entre 1 y 7 capas.\"\n        modal = ui.modal(modal_content, title=\"Error\", \n        easy_close=True)\n        ui.modal_show(modal)\n        return\n    else:\n        capas_ui = []\n        for i in range(capa):\n            capas_ui.append(\n                ui.layout_columns(\n                    ui.input_numeric(f\"espesor_SC1_{i+1}\", \n                    f\"Espesor {i+1} SC 1:\", value=0.010, max=0.9, \n                    step=0.01, min=0.010),\n                    ui.input_select(f\"material_SC1_{i+1}\", \n                    f\"Material {i+1} SC 1:\", choices=materiales)\n                )\n            )\n        return ui.TagList(*capas_ui) if capas_ui else ui.TagList()\n\n\n\nEstá función fue creada para generar la gráfica de “Temperatura”, donde nos visualza un grafico dependiendo los valores ingresados por el usuario, para generar un cálculo en base a ello.\ndef plot_T(dia):\n    fig = make_subplots(rows=1, cols=1)\n    df = dia.iloc[::600]\n    fig.add_trace(go.Scatter(x=df.index, y=df['Ta'], \n    mode='lines', name='Ta', line=dict(color='black'))\n    , row=1, col=1)\n    fig.add_trace(go.Scatter(x=df.index, y=df['Tsa'], \n    mode='lines', name='Tsa', line=dict(color='red')),\n    row=1, col=1)\n    fig.add_trace(go.Scatter(x=df.index, y=df['Tn'] + \n    df['DeltaTn'], mode='lines',showlegend=False , \n    line=dict(color='rgba(0,0,0,0)')),\n                row=1, col=1)\n    fig.add_trace(go.Scatter(x=df.index, y=df['Tn'] - \n    df['DeltaTn'], mode='lines',showlegend=False , fill='tonexty', \n    line=dict(color='rgba(0,0,0,0)'), fillcolor='rgba(0,255,0,0.3)'),\n                row=1, col=1)\n    fig.update_yaxes(title_text=\"Temperatura [°C]\", row=1, col=1)\n    return fig\n\n\n\nAl igual que la función anterior, está función fue creada para generar la gráfica de “Radiación”, donde nos visualza un grafico dependiendo los valores ingresados por el usuario, para generar un cálculo en base a ello.\ndef plot_I(dia):\n    fig = make_subplots(rows=1, cols=1)\n    df = dia.iloc[::600]\n    fig.add_trace(go.Scatter(x=df.index, y=df['Ig'], mode='lines', name='Ig'), row=1, col=1)\n    fig.add_trace(go.Scatter(x=df.index, y=df['Ib'], mode='lines', name='Ib'), row=1, col=1)\n    fig.add_trace(go.Scatter(x=df.index, y=df['Id'], mode='lines', name='Id'), row=1, col=1)\n    fig.add_trace(go.Scatter(x=df.index, y=df['Is'], mode='lines', name='Is'), row=1, col=1)\n    fig.update_yaxes(title_text=\"Irradiancia [W/m²]\", row=1, col=1)\n    return fig",
+    "text": "A continuación se explicarán y se mostrarán las funciones que contiene dicho sistema, para completar el desarrollo de ejecución de la interfaz:\n\n\nSe generó una función para obtener todo el contenido del archivo de lugares .ini, donde dicho contenido será utilizado para la elaboración de los gráficos y maipulación de datos en el DataFrame.\ndef cargar_caracteristicas(lugar):\n    lugar_config = config[lugar]\n    return {\n        \"lat\": lugar_config.getfloat('lat'),\n        \"lon\": lugar_config.getfloat('lon'),\n        \"alt\": lugar_config.getint('altitude'),\n        \"epw\": lugar_config['f_epw']\n}\n\n\n\ndef ruta(lugar):\n    f_epw = cargar_caracteristicas(lugar)\n    epwP = f_epw['epw']\n    divi = epwP.split(\"_\")\n    pa = divi[0].replace('data/', '')\n    pais = pa.capitalize()\n    es = divi[1]\n    estado = es.capitalize()\n    ciudad = divi[2].replace('.epw', '')\n    ruta = f\"./data/{pa}_{es}_{ciudad}.epw\"\n    return ruta\n\n\n\ndef controls_left(type,lugares,meses_dict, location, orientacion,absortance):\n    if type == 1 :\n        return ui.TagList(\n            ui.input_select(\"place\", \"Lugar:\", \n            choices=lugares),\n            ui.input_selectize(\"periodo\", \"Mes:\", \n            choices=list(meses_dict.keys())),\n            ui.input_select(\"ubicacion\", \"Ubicación:\", \n            choices=list(location.keys())),\n            ui.output_ui(\"ubicacion_orientacion\")\n        )\n    elif type == 2 :\n        return ui.TagList(\n            ui.input_select(\"place\", \"Lugar:\", \n            choices=lugares),\n            ui.input_selectize(\"periodo\", \"Mes:\", \n            choices=list(meses_dict.keys())),\n            ui.input_select(\"ubicacion\", \"Ubicación:\", \n            choices=list(location.keys())),\n            ui.input_select(\"orientacion\", \"Orientación:\", \n            choices=list(orientacion.keys())),\n            ui.input_select(\"absortancia\",\"Absortancia:\", \n            choices=list(absortance.keys())),\n            ui.output_ui(\"absortancia_f\"),\n        )\n    return None\n\n\n\ndependiendo la ubicacion\ndef orientacion_disable(ubicacion,  orientacion, absortance):\n    if ubicacion == \"Techo\":\n        return ui.TagList(\n                ui.input_select(\"absortancia\", \"Absortancia:\", \n                choices=list(absortance.keys())),\n                ui.output_ui(\"absortancia_f\")\n            ) \n    else: \n        return ui.TagList(\n                ui.input_select(\"orientacion\", \"Orientación:\", \n                choices=list(orientacion.keys())),\n                ui.input_select(\"absortancia\", \"Absortancia:\", \n                choices=list(absortance.keys())),\n                ui.output_ui(\"absortancia_f\")\n        )  \n\n\n\ndef absortance_value(value):\n        return ui.TagList(\n            ui.input_numeric(\"absortancia_value\", \"\", \n            value=value, min=0.10, max=1.0, step=0.01)  \n        ) \n\n\n\ndef top_controls(type):\n    if type == 1:\n        return ui.TagList(\n            ui.input_select(\"Conditional\", \"Condición:\", \n            choices=[\"Sin aire acondicionado\", \"Con aire acondicionado\"]),  \n        )\n    elif type == 2:\n        return ui.TagList(\n            ui.input_slider(\"capas\", \"Número de capas:\", 1, 5, 1),\n            ui.input_select(\"Conditional\", \"Condición:\", \n            choices=[\"Sin aire acondicionado\", \"Con aire acondicionado\"]),\n        )\n    return None\n\n\n\ndef rigth_controls(type, materiales):\n    if type == 1:\n        return ui.TagList(\n            ui.output_ui(\"campos\")\n        )\n    elif type == 2:\n        return ui.TagList(\n            ui.HTML('&lt;img src=\"modelo.png\" \n            width=\"200\" height=\"90\"&gt;'),\n            ui.input_select(\"muro\", \"Material:\", \n            choices=materiales),\n            ui.layout_columns(\n                ui.input_numeric(\"e11\", \"e11\", value=0.1),\n                ui.input_numeric(\"a11\", \"a11\", value=0.1),\n            ),\n            ui.layout_columns(\n                ui.input_numeric(\"e21\", \"e21\", value=0.1),\n                ui.input_numeric(\"a21\", \"a21\", value=0.1),\n            ),\n            ui.layout_columns(\n                ui.input_numeric(\"e12\", \"e12\", value=0.1),\n                ui.input_numeric(\"a12\", \"a12\", value=0.1),\n            ),\n        )\n    return None\n\n\n\ndef f_sistemas(num):\n    if num &gt; 5 or num &lt; 1 or num is None:\n        modal_content = \"Solo se permiten entre 1 y 5 \n        sistemas constructivos.\"\n        modal = ui.modal(modal_content, title=\"Error\", \n        easy_close=True)\n        ui.modal_show(modal)\n        return\n    else:\n        num1 = ui.TagList(\n            ui.accordion(\n                ui.accordion_panel(\n                    \"Sistema constructivo 1:\",\n                    ui.input_numeric(\"capa_1\", \n                    \"Numero de capas:\", value=1, min=1, max=7),\n                    ui.output_ui(\"num_capas1\")\n                )\n            )\n        )\n        if num == 1:\n            return num1\n        elif num == 2:\n            return num1 + num2\n        elif num == 3:\n            return num1 + num2 + num3\n        elif num == 4:\n            return num1 + num2 + num3 + num4\n        elif num == 5:\n            return num1 + num2 + num3 + num4 + num5\n\n\n\ndef info_capa1(capa, materiales, sistemas):\n    if capa &gt; 7 or capa &lt; 1 or capa is None:\n        modal_content = \"Solo se permiten entre 1 y 7 capas.\"\n        modal = ui.modal(modal_content, title=\"Error\", \n        easy_close=True)\n        ui.modal_show(modal)\n        return\n    else:\n        capas_ui = []\n        for i in range(capa):\n            capas_ui.append(\n                ui.layout_columns(\n                    ui.input_numeric(f\"espesor_SC1_{i+1}\", \n                    f\"Espesor {i+1} SC 1:\", value=0.010, max=0.9, \n                    step=0.01, min=0.010),\n                    ui.input_select(f\"material_SC1_{i+1}\", \n                    f\"Material {i+1} SC 1:\", choices=materiales)\n                )\n            )\n        return ui.TagList(*capas_ui) if capas_ui else ui.TagList()\n\n\n\nEstá función fue creada para generar la gráfica de “Temperatura”, donde nos visualza un grafico dependiendo los valores ingresados por el usuario, para generar un cálculo en base a ello.\ndef plot_T(dia):\n    fig = make_subplots(rows=1, cols=1)\n    df = dia.iloc[::600]\n    fig.add_trace(go.Scatter(x=df.index, y=df['Ta'], \n    mode='lines', name='Ta', line=dict(color='black'))\n    , row=1, col=1)\n    fig.add_trace(go.Scatter(x=df.index, y=df['Tsa'], \n    mode='lines', name='Tsa', line=dict(color='red')),\n    row=1, col=1)\n    fig.add_trace(go.Scatter(x=df.index, y=df['Tn'] + \n    df['DeltaTn'], mode='lines',showlegend=False , \n    line=dict(color='rgba(0,0,0,0)')),\n                row=1, col=1)\n    fig.add_trace(go.Scatter(x=df.index, y=df['Tn'] - \n    df['DeltaTn'], mode='lines',showlegend=False , fill='tonexty', \n    line=dict(color='rgba(0,0,0,0)'), fillcolor='rgba(0,255,0,0.3)'),\n                row=1, col=1)\n    fig.update_yaxes(title_text=\"Temperatura [°C]\", row=1, col=1)\n    return fig\n\n\n\nAl igual que la función anterior, está función fue creada para generar la gráfica de “Radiación”, donde nos visualza un grafico dependiendo los valores ingresados por el usuario, para generar un cálculo en base a ello.\ndef plot_I(dia):\n    fig = make_subplots(rows=1, cols=1)\n    df = dia.iloc[::600]\n    fig.add_trace(go.Scatter(x=df.index, y=df['Ig'], mode='lines', name='Ig'), row=1, col=1)\n    fig.add_trace(go.Scatter(x=df.index, y=df['Ib'], mode='lines', name='Ib'), row=1, col=1)\n    fig.add_trace(go.Scatter(x=df.index, y=df['Id'], mode='lines', name='Id'), row=1, col=1)\n    fig.add_trace(go.Scatter(x=df.index, y=df['Is'], mode='lines', name='Is'), row=1, col=1)\n    fig.update_yaxes(title_text=\"Irradiancia [W/m²]\", row=1, col=1)\n    return fig\n\n\n\nEsta función fue creada para generar una nueva línea llamada Ti, para la comprobación de que al momento de que el usuario de clic al botón “Correr”, esta función sea llamada y así por cada sistema constructivo se calcula y genera una nueva Ti.\ndef plot_T_TI(dia):\n    fig = make_subplots(rows=1, cols=1)\n    df = dia.iloc[::600]\n    fig.add_trace(go.Scatter(x=df.index, y=df['Ta'], \n    mode='lines', name='Ta', line=dict(color='black')), \n    row=1, col=1)\n    fig.add_trace(go.Scatter(x=df.index, y=df['Tsa'], \n    mode='lines', name='Tsa', line=dict(color='red')),\n    row=1, col=1)\n    fig.add_trace(go.Scatter(x=df.index, y=df['Ti'], \n    mode='lines', name='Ti', line=dict(color='green')), \n    row=1, col=1)\n    fig.add_trace(go.Scatter(x=df.index, y=df['Tn'] + \n    df['DeltaTn'], mode='lines',showlegend=False , \n    line=dict(color='rgba(0,0,0,0)')),\n                row=1, col=1)\n    fig.add_trace(go.Scatter(x=df.index, y=df['Tn'] - \n    df['DeltaTn'], mode='lines',showlegend=False , \n    fill='tonexty', line=dict(color='rgba(0,0,0,0)'), \n    fillcolor='rgba(0,255,0,0.3)'),\n                row=1, col=1)\n    fig.update_yaxes(title_text=\"Temperatura [°C]\", row=1, col=1)\n    return fig",
     "crumbs": [
       "Funciones"
     ]
@@ -251,7 +251,7 @@
     "href": "docs/archivos.html",
     "title": "Archivos generados",
     "section": "",
-    "text": "Para poder generar un código limpio con una estructura legible, se crearon varios archivos, pero de los más destacados y que tienen como función, contener información de la cual será extraida en la sección de funciones.\n\n\nEstos dos archivos generados tienen por nombre lugares.ini & materiales.ini, donde se almacenaran los valores que contiene cada lugar y cada material para después extraerse.\n## Archivo de lugares.ini\n[Cuernavaca, Mor, Mex]\nlat = 18.8\nlon = -99.2\naltitude = 1280\nf_epw = data/MEX_MOR_Cuernavaca.epw\n\n[Zacatepec, Mor, Mex]\nlat = 18.5\nlon = -99.5\naltitude = 1480\nf_epw = data/MEX_MOR_Zacatepec.epw\n## Archivo de materiales.ini\n\n[Cuernavaca, Mor, Mex]\nlat = 18.8\nlon = -99.2\naltitude = 1280\nf_epw = data/MEX_MOR_Cuernavaca.epw\n\n[Zacatepec, Mor, Mex]\nlat = 18.5\nlon = -99.5\naltitude = 1480\nf_epw = data/MEX_MOR_Zacatepec.epw",
+    "text": "Para poder generar un código limpio con una estructura legible, se crearon varios archivos, pero de los más destacados y que tienen una función esencial en el sistema, son los siguientes archivos que almacenan información de la cual será extraida en la sección de “funciones generales”.\n\n\nEstos dos archivos generados tienen por nombre lugares.ini & materiales.ini, donde se almacenaran los valores que contiene cada lugar y cada material para después extraerse.\n## Archivo de lugares.ini\n[Cuernavaca, Mor, Mex]\nlat = 18.8\nlon = -99.2\naltitude = 1280\nf_epw = data/MEX_MOR_Cuernavaca.epw\n\n[Zacatepec, Mor, Mex]\nlat = 18.5\nlon = -99.5\naltitude = 1480\nf_epw = data/MEX_MOR_Zacatepec.epw\n## Archivo de materiales.ini\n\n[Cuernavaca, Mor, Mex]\nlat = 18.8\nlon = -99.2\naltitude = 1280\nf_epw = data/MEX_MOR_Cuernavaca.epw\n\n[Zacatepec, Mor, Mex]\nlat = 18.5\nlon = -99.5\naltitude = 1480\nf_epw = data/MEX_MOR_Zacatepec.epw\n\n\n\nEstos archivos contienen los datos que serán usados para poder calcular y generar las simulaciones correctamente, ya que contienen datos meteorológicos que se utilizan comúnmente en simulaciones energéticas y de rendimiento ambiental,para modelar las condiciones climáticas de un sitio específico.\nEjemplo de archivos EPW:",
     "crumbs": [
       "Archivos creados"
     ]
@@ -274,6 +274,246 @@
     "text": "Se generó una función para obtener todo el contenido del archivo de lugares .ini, donde dicho contenido será utilizado para la elaboración de los gráficos y maipulación de datos en el DataFrame.\ndef cargar_caracteristicas(lugar):\n    lugar_config = config[lugar]\n    return {\n        \"lat\": lugar_config.getfloat('lat'),\n        \"lon\": lugar_config.getfloat('lon'),\n        \"alt\": lugar_config.getint('altitude'),\n        \"epw\": lugar_config['f_epw']\n}",
     "crumbs": [
       "Funciones"
+    ]
+  },
+  {
+    "objectID": "docs/server.html",
+    "href": "docs/server.html",
+    "title": "Funciones para las iteracciones",
+    "section": "",
+    "text": "Las siguientes funciones se generaron para ser visualizadas(renderizadas) por el usuario, debido a que las funciones que se mostrarán y explicarán a continuación van dentro de la función server, las cuales estarán en iteracción con el usuario.\n\n\nLa función server en Shiny para Python define cómo la aplicación responde a las interacciones del usuario y genera salidas dinámicas, haciendo que la aplicación sea interactiva y reactiva.\ndef server(input, output, session):\n\n\n\nLa función que se muestra a continuación es llamada para ser mostrado al comienzo del sistema,\n    present_news(False)\n\n\n\n    @reactive.effect\n    @reactive.event(input.update)\n    def increment():\n        type = input.type()\n        condition = input.Conditional() \n        bd = True\n        insert_db(type, condition,bd)\n\n\n\n    @reactive.effect\n    def _():\n        req(input.update())\n        place = input.place()\n        ruta_epw = ruta(place)\n        mes = meses_dict[input.periodo()]\n        caracteristicas = cargar_caracteristicas(place)\n        absortancia = input.absortancia_value()\n        surface_tilt = location[input.ubicacion()]\n        surface_azimuth = orientacion[input.orientacion()]\n        \n        dia = btn_run(\n            ruta_epw,\n            caracteristicas['lat'],\n            caracteristicas['lon'],\n            caracteristicas['alt'],\n            mes,\n            absortancia,\n            surface_tilt,\n            surface_azimuth,\n            timezone  \n        )\n        \n        reactive_data.set(dia)\n\n\n\n    @output\n    @render.ui\n    def left_controls():\n        type = type_sistem[input.type()]\n        return controls_left(type, \n                        lugares, \n                        meses_dict, \n                        location, \n                        orientacion, \n                        Absortancia)\n\n\n\n    @output\n    @render.ui\n    def ubicacion_orientacion():\n        ubicacion = input.ubicacion()\n        return orientacion_disable(ubicacion, \n        orientacion, Absortancia)\n\n\n\n    @output\n    @render.ui\n    def absortancia_f():\n        selected = input.absortancia()\n        value = Absortancia.get(selected, 0.01)\n        return absortance_value(value)\n\n\n\n    @output\n    @render.ui\n    def controls_top():\n        type =  type_sistem[input.type()]\n        return top_controls(type)\n\n\n\n    @output\n    @render.ui\n    def controls_rigth():\n        type =  type_sistem[input.type()]\n        return rigth_controls(type, materiales)\n\n\n\n    @output\n    @render.ui\n    def campos():\n        num = input.sistemas()\n        return f_sistemas(num)\n\n\n\n    @output\n    @render.ui\n    def num_capas1():\n        sistemas = input.sistemas() \n        capa = input.capa_1()\n        return info_capa1(capa,materiales,sistemas)\n\n\n\n    @output\n    @render_plotly\n    def temperatura():\n        place = input.place()\n        ruta_epw = ruta(place)\n        mes = meses_dict[input.periodo()]\n        caracteristicas = cargar_caracteristicas(place)\n        absortancia = input.absortancia_value() \n        surface_tilt = location[input.ubicacion()]  \n        surface_azimuth = orientacion[input.orientacion()] \n\n        if input.update():\n            dia =btn_run(\n                ruta_epw,\n                caracteristicas['lat'],\n                caracteristicas['lon'],\n                caracteristicas['alt'],\n                mes,\n                absortancia,\n                surface_tilt,\n                surface_azimuth,\n                timezone\n            )\n            \n            fig = plot_T_I(dia)\n        else:\n            dia = calculate_day(\n                ruta_epw,\n                caracteristicas['lat'],\n                caracteristicas['lon'],\n                caracteristicas['alt'],\n                mes,\n                absortancia,\n                surface_tilt,\n                surface_azimuth,\n                timezone\n            )\n\n            fig = plot_T(dia)\n\n        return fig\n\n\n\n    @output\n    @render_plotly\n    def radiacion():\n        place = input.place()\n        ruta_epw = ruta(place)\n        mes = meses_dict[input.periodo()]\n        caracteristicas = cargar_caracteristicas(place)\n        absortancia = input.absortancia_value() \n        surface_tilt = location[input.ubicacion()] \n        surface_azimuth = orientacion[input.orientacion()]\n\n        dia = calculate_day(\n            ruta_epw,\n            caracteristicas['lat'],\n            caracteristicas['lon'],\n            caracteristicas['alt'],\n            mes,\n            absortancia,\n            surface_tilt,\n            surface_azimuth,\n            timezone\n        )\n        \n        fig = plot_I(dia)\n        return fig\n\n\n\n    @output\n    @render.text\n    def resultados():\n        lugar = input.place()\n        mes = input.periodo()\n        ubicacion = input.ubicacion()\n        orienta = input.orientacion()\n        abs = input.absortancia()\n        sistemas = input.sistemas()\n        condicion = input.Conditional()\n        tipo =  type_sistem[input.type()]\n\n        resultado = f\"Lugar: {lugar}, Mes: {mes}, \n        Ubicacion: {ubicacion}, Orientacion: {orienta}, \n        Absortancia: {abs}, Sistemas: {sistemas}, \n        Condicion: {condicion}, Tipo de sistema: {tipo}\"\n\n        return resultado\n\n\n\n    @output\n    @render.data_frame\n    def get_day_data():\n        if input.update():\n            result = reactive_data.get()\n            data_to_show = result[::3600].reset_index()\n            data_to_show['Fecha_Hora'] = data_to_show['Fecha_Hora'].dt.strftime('%Y-%m-%d %H:%M:%S')\n        else:\n            place = input.place()\n            ruta_epw = ruta(place)  \n            mes = meses_dict[input.periodo()]  \n            caracteristicas = cargar_caracteristicas(place)  \n            absortancia = Absortancia[input.absortancia()]  \n            surface_tilt = location[input.ubicacion()] \n            surface_azimuth = orientacion[input.orientacion()]  \n        \n            result = data_frame(\n                ruta_epw,\n                caracteristicas['lat'],\n                caracteristicas['lon'],\n                caracteristicas['alt'],\n                mes,\n                absortancia,\n                surface_tilt,\n                surface_azimuth,\n                timezone\n            )\n            \n            data_to_show = result[::3600].reset_index() \n            data_to_show['Fecha_Hora'] = data_to_show['Fecha_Hora'].dt.strftime('%Y-%m-%d %H:%M:%S')\n\n        return data_to_show\n\n\n\n    @render.download(\n        filename=lambda: f\"data-{date.today().isoformat()}.csv\"\n    )\n    async def downloadData():\n        if input.update():\n            data = reactive_data.get()\n\n            data_= data[::3600].reset_index() \n            csv_buffer = StringIO()\n            data_.to_csv(csv_buffer,index=True)\n            csv_buffer.seek(0)\n        else: \n            place = input.place()\n            ruta_epw = ruta(place)  \n            mes = meses_dict[input.periodo()]  \n            caracteristicas = cargar_caracteristicas(place) \n            absortancia = Absortancia[input.absortancia()]  \n            surface_tilt = location[input.ubicacion()] \n            surface_azimuth = orientacion[input.orientacion()]  \n\n            data = data_frame(\n                ruta_epw,\n                caracteristicas['lat'],\n                caracteristicas['lon'],\n                caracteristicas['alt'],\n                mes,\n                absortancia,\n                surface_tilt,\n                surface_azimuth,\n                timezone\n            )\n        \n            data_= data[::3600].reset_index() \n            csv_buffer = StringIO()\n            data_.to_csv(csv_buffer,index=True)\n            csv_buffer.seek(0)\n            \n        await asyncio.sleep(0.25)\n        yield csv_buffer.read()\n\n\n\n    @output\n    @render.ui\n    def documentacion():\n        return respiratory_diseases_app()\n\n\n\napp = App(app_ui, server)\n\nif __name__ == \"__main__\":\n    app.run()",
+    "crumbs": [
+      "Funciones del server"
+    ]
+  },
+  {
+    "objectID": "docs/bd.html",
+    "href": "docs/bd.html",
+    "title": "Configuración de la base de datos",
+    "section": "",
+    "text": "Los datos que se contiene en la función, cambian en relación a la configuración que se genere al descargar MySQl, puesto que puede contener o no una contraseña e incluso puede ser diferente. En relación a dicha función es esencial y es la principal para poder hacer inserciones a la base de datos.\ndb_config = {\n    'user': 'root',\n    'password': 'root',\n    'host': 'localhost',\n    'database': 'enerhabitat',\n    'port': 3306\n}\n\n\nEsta función fue creada para generar la inserción de cada simulación que se genere en la base de datos. Principalmente se creó para el usuario administrador, puesto que es almacenada cada simulación que se tenga anual, mensual y por condición (“con aire acondicionado & Sin aire acondicionado”).\ndef insert_db(type, condition, bd):\n    if bd is False:\n        print(\"La ejecución de la base de datos se apagó\")\n    else:\n        connection = mysql.connector.connect(**db_config)\n        cursor = connection.cursor()\n        query = \"\"\"\n        INSERT INTO simulations (id_num, date_count, type_simulation, type_conditional)\n        VALUES (%s, %s, %s, %s);\n        \"\"\"\n        params = (0, date_time.date(), type, condition)\n        cursor.execute(query, params)\n        connection.commit()\n        cursor.close()\n        connection.close()",
+    "crumbs": [
+      "Base de datos"
+    ]
+  },
+  {
+    "objectID": "docs/funciones.html#función-para-generar-una-nueva-línea-ti",
+    "href": "docs/funciones.html#función-para-generar-una-nueva-línea-ti",
+    "title": "Funciones generales",
+    "section": "",
+    "text": "Esta función fue creada para generar una nueva línea llamada Ti, para la comprobación de que al momento de que el usuario de clic al botón “Correr”, esta función sea llamada y así por cada sistema constructivo se calcula y genera una nueva Ti.\ndef plot_T_TI(dia):\n    fig = make_subplots(rows=1, cols=1)\n    df = dia.iloc[::600]\n    fig.add_trace(go.Scatter(x=df.index, y=df['Ta'], \n    mode='lines', name='Ta', line=dict(color='black')), \n    row=1, col=1)\n    fig.add_trace(go.Scatter(x=df.index, y=df['Tsa'], \n    mode='lines', name='Tsa', line=dict(color='red')),\n    row=1, col=1)\n    fig.add_trace(go.Scatter(x=df.index, y=df['Ti'], \n    mode='lines', name='Ti', line=dict(color='green')), \n    row=1, col=1)\n    fig.add_trace(go.Scatter(x=df.index, y=df['Tn'] + \n    df['DeltaTn'], mode='lines',showlegend=False , \n    line=dict(color='rgba(0,0,0,0)')),\n                row=1, col=1)\n    fig.add_trace(go.Scatter(x=df.index, y=df['Tn'] - \n    df['DeltaTn'], mode='lines',showlegend=False , \n    fill='tonexty', line=dict(color='rgba(0,0,0,0)'), \n    fillcolor='rgba(0,255,0,0.3)'),\n                row=1, col=1)\n    fig.update_yaxes(title_text=\"Temperatura [°C]\", row=1, col=1)\n    return fig",
+    "crumbs": [
+      "Funciones"
+    ]
+  },
+  {
+    "objectID": "docs/server.html#función-para-determinar-que-inicia-el-server",
+    "href": "docs/server.html#función-para-determinar-que-inicia-el-server",
+    "title": "Renderizar en el server",
+    "section": "",
+    "text": "[Cuernavaca, Mor, Mex]\nlat = 18.8\nlon = -99.2\naltitude = 1280\nf_epw = data/MEX_MOR_Cuernavaca.epw\n\n[Zacatepec, Mor, Mex]\nlat = 18.5\nlon = -99.5\naltitude = 1480\nf_epw = data/MEX_MOR_Zacatepec.epw",
+    "crumbs": [
+      "Funciones para renderizar"
+    ]
+  },
+  {
+    "objectID": "docs/server.html#función-server",
+    "href": "docs/server.html#función-server",
+    "title": "Funciones para las iteracciones",
+    "section": "",
+    "text": "La función server en Shiny para Python define cómo la aplicación responde a las interacciones del usuario y genera salidas dinámicas, haciendo que la aplicación sea interactiva y reactiva.\ndef server(input, output, session):",
+    "crumbs": [
+      "Funciones del server"
+    ]
+  },
+  {
+    "objectID": "docs/server.html#función-del-modal-de-presentación",
+    "href": "docs/server.html#función-del-modal-de-presentación",
+    "title": "Funciones para las iteracciones",
+    "section": "",
+    "text": "La función que se muestra a continuación es llamada para ser mostrado al comienzo del sistema,\n    present_news(False)",
+    "crumbs": [
+      "Funciones del server"
+    ]
+  },
+  {
+    "objectID": "docs/server.html#función-para-contar-las-simulaciones",
+    "href": "docs/server.html#función-para-contar-las-simulaciones",
+    "title": "Funciones para las iteracciones",
+    "section": "",
+    "text": "@reactive.effect\n    @reactive.event(input.update)\n    def increment():\n        type = input.type()\n        condition = input.Conditional() \n        bd = True\n        insert_db(type, condition,bd)",
+    "crumbs": [
+      "Funciones del server"
+    ]
+  },
+  {
+    "objectID": "docs/server.html#función-para-generar-la-línea-ti",
+    "href": "docs/server.html#función-para-generar-la-línea-ti",
+    "title": "Funciones para las iteracciones",
+    "section": "",
+    "text": "@reactive.effect\n    def _():\n        req(input.update())\n        place = input.place()\n        ruta_epw = ruta(place)\n        mes = meses_dict[input.periodo()]\n        caracteristicas = cargar_caracteristicas(place)\n        absortancia = input.absortancia_value()\n        surface_tilt = location[input.ubicacion()]\n        surface_azimuth = orientacion[input.orientacion()]\n        \n        dia = btn_run(\n            ruta_epw,\n            caracteristicas['lat'],\n            caracteristicas['lon'],\n            caracteristicas['alt'],\n            mes,\n            absortancia,\n            surface_tilt,\n            surface_azimuth,\n            timezone  \n        )\n        \n        reactive_data.set(dia)",
+    "crumbs": [
+      "Funciones del server"
+    ]
+  },
+  {
+    "objectID": "docs/server.html#función-para-visualizar-left_controls",
+    "href": "docs/server.html#función-para-visualizar-left_controls",
+    "title": "Funciones para las iteracciones",
+    "section": "",
+    "text": "@output\n    @render.ui\n    def left_controls():\n        type = type_sistem[input.type()]\n        return controls_left(type, \n                        lugares, \n                        meses_dict, \n                        location, \n                        orientacion, \n                        Absortancia)",
+    "crumbs": [
+      "Funciones del server"
+    ]
+  },
+  {
+    "objectID": "docs/server.html#función-para-visualizar-ubicacion_orientacion",
+    "href": "docs/server.html#función-para-visualizar-ubicacion_orientacion",
+    "title": "Funciones para las iteracciones",
+    "section": "",
+    "text": "@output\n    @render.ui\n    def ubicacion_orientacion():\n        ubicacion = input.ubicacion()\n        return orientacion_disable(ubicacion, \n        orientacion, Absortancia)",
+    "crumbs": [
+      "Funciones del server"
+    ]
+  },
+  {
+    "objectID": "docs/server.html#función-para-visualizar-el-valor-de-la-abosrtancia",
+    "href": "docs/server.html#función-para-visualizar-el-valor-de-la-abosrtancia",
+    "title": "Funciones para las iteracciones",
+    "section": "",
+    "text": "@output\n    @render.ui\n    def absortancia_f():\n        selected = input.absortancia()\n        value = Absortancia.get(selected, 0.01)\n        return absortance_value(value)",
+    "crumbs": [
+      "Funciones del server"
+    ]
+  },
+  {
+    "objectID": "docs/server.html#función-para-visualizar-controls_top",
+    "href": "docs/server.html#función-para-visualizar-controls_top",
+    "title": "Funciones para las iteracciones",
+    "section": "",
+    "text": "@output\n    @render.ui\n    def controls_top():\n        type =  type_sistem[input.type()]\n        return top_controls(type)",
+    "crumbs": [
+      "Funciones del server"
+    ]
+  },
+  {
+    "objectID": "docs/server.html#función-para-visualizar-controls_rigth",
+    "href": "docs/server.html#función-para-visualizar-controls_rigth",
+    "title": "Funciones para las iteracciones",
+    "section": "",
+    "text": "@output\n    @render.ui\n    def controls_rigth():\n        type =  type_sistem[input.type()]\n        return rigth_controls(type, materiales)",
+    "crumbs": [
+      "Funciones del server"
+    ]
+  },
+  {
+    "objectID": "docs/server.html#función-para-visualizar-campos",
+    "href": "docs/server.html#función-para-visualizar-campos",
+    "title": "Funciones para las iteracciones",
+    "section": "",
+    "text": "@output\n    @render.ui\n    def campos():\n        num = input.sistemas()\n        return f_sistemas(num)",
+    "crumbs": [
+      "Funciones del server"
+    ]
+  },
+  {
+    "objectID": "docs/server.html#función-para-visualizar-el-numero-de-capas",
+    "href": "docs/server.html#función-para-visualizar-el-numero-de-capas",
+    "title": "Funciones para las iteracciones",
+    "section": "",
+    "text": "@output\n    @render.ui\n    def num_capas1():\n        sistemas = input.sistemas() \n        capa = input.capa_1()\n        return info_capa1(capa,materiales,sistemas)",
+    "crumbs": [
+      "Funciones del server"
+    ]
+  },
+  {
+    "objectID": "docs/server.html#función-para-visualizar-la-gráfica-temperatura",
+    "href": "docs/server.html#función-para-visualizar-la-gráfica-temperatura",
+    "title": "Funciones para las iteracciones",
+    "section": "",
+    "text": "@output\n    @render_plotly\n    def temperatura():\n        place = input.place()\n        ruta_epw = ruta(place)\n        mes = meses_dict[input.periodo()]\n        caracteristicas = cargar_caracteristicas(place)\n        absortancia = input.absortancia_value() \n        surface_tilt = location[input.ubicacion()]  \n        surface_azimuth = orientacion[input.orientacion()] \n\n        if input.update():\n            dia =btn_run(\n                ruta_epw,\n                caracteristicas['lat'],\n                caracteristicas['lon'],\n                caracteristicas['alt'],\n                mes,\n                absortancia,\n                surface_tilt,\n                surface_azimuth,\n                timezone\n            )\n            \n            fig = plot_T_I(dia)\n        else:\n            dia = calculate_day(\n                ruta_epw,\n                caracteristicas['lat'],\n                caracteristicas['lon'],\n                caracteristicas['alt'],\n                mes,\n                absortancia,\n                surface_tilt,\n                surface_azimuth,\n                timezone\n            )\n\n            fig = plot_T(dia)\n\n        return fig",
+    "crumbs": [
+      "Funciones del server"
+    ]
+  },
+  {
+    "objectID": "docs/server.html#función-para-visualizar-la-gráfica-radiación",
+    "href": "docs/server.html#función-para-visualizar-la-gráfica-radiación",
+    "title": "Funciones para las iteracciones",
+    "section": "",
+    "text": "@output\n    @render_plotly\n    def radiacion():\n        place = input.place()\n        ruta_epw = ruta(place)\n        mes = meses_dict[input.periodo()]\n        caracteristicas = cargar_caracteristicas(place)\n        absortancia = input.absortancia_value() \n        surface_tilt = location[input.ubicacion()] \n        surface_azimuth = orientacion[input.orientacion()]\n\n        dia = calculate_day(\n            ruta_epw,\n            caracteristicas['lat'],\n            caracteristicas['lon'],\n            caracteristicas['alt'],\n            mes,\n            absortancia,\n            surface_tilt,\n            surface_azimuth,\n            timezone\n        )\n        \n        fig = plot_I(dia)\n        return fig",
+    "crumbs": [
+      "Funciones del server"
+    ]
+  },
+  {
+    "objectID": "docs/server.html#función-para-visualizar-los-resultados",
+    "href": "docs/server.html#función-para-visualizar-los-resultados",
+    "title": "Funciones para las iteracciones",
+    "section": "",
+    "text": "@output\n    @render.text\n    def resultados():\n        lugar = input.place()\n        mes = input.periodo()\n        ubicacion = input.ubicacion()\n        orienta = input.orientacion()\n        abs = input.absortancia()\n        sistemas = input.sistemas()\n        condicion = input.Conditional()\n        tipo =  type_sistem[input.type()]\n\n        resultado = f\"Lugar: {lugar}, Mes: {mes}, \n        Ubicacion: {ubicacion}, Orientacion: {orienta}, \n        Absortancia: {abs}, Sistemas: {sistemas}, \n        Condicion: {condicion}, Tipo de sistema: {tipo}\"\n\n        return resultado",
+    "crumbs": [
+      "Funciones del server"
+    ]
+  },
+  {
+    "objectID": "docs/server.html#función-para-visualizar-el-dataframe",
+    "href": "docs/server.html#función-para-visualizar-el-dataframe",
+    "title": "Funciones para las iteracciones",
+    "section": "",
+    "text": "@output\n    @render.data_frame\n    def get_day_data():\n        if input.update():\n            result = reactive_data.get()\n            data_to_show = result[::3600].reset_index()\n            data_to_show['Fecha_Hora'] = data_to_show['Fecha_Hora'].dt.strftime('%Y-%m-%d %H:%M:%S')\n        else:\n            place = input.place()\n            ruta_epw = ruta(place)  \n            mes = meses_dict[input.periodo()]  \n            caracteristicas = cargar_caracteristicas(place)  \n            absortancia = Absortancia[input.absortancia()]  \n            surface_tilt = location[input.ubicacion()] \n            surface_azimuth = orientacion[input.orientacion()]  \n        \n            result = data_frame(\n                ruta_epw,\n                caracteristicas['lat'],\n                caracteristicas['lon'],\n                caracteristicas['alt'],\n                mes,\n                absortancia,\n                surface_tilt,\n                surface_azimuth,\n                timezone\n            )\n            \n            data_to_show = result[::3600].reset_index() \n            data_to_show['Fecha_Hora'] = data_to_show['Fecha_Hora'].dt.strftime('%Y-%m-%d %H:%M:%S')\n\n        return data_to_show",
+    "crumbs": [
+      "Funciones del server"
+    ]
+  },
+  {
+    "objectID": "docs/server.html#función-para-la-descarga-del-dataframe",
+    "href": "docs/server.html#función-para-la-descarga-del-dataframe",
+    "title": "Funciones para las iteracciones",
+    "section": "",
+    "text": "@render.download(\n        filename=lambda: f\"data-{date.today().isoformat()}.csv\"\n    )\n    async def downloadData():\n        if input.update():\n            data = reactive_data.get()\n\n            data_= data[::3600].reset_index() \n            csv_buffer = StringIO()\n            data_.to_csv(csv_buffer,index=True)\n            csv_buffer.seek(0)\n        else: \n            place = input.place()\n            ruta_epw = ruta(place)  \n            mes = meses_dict[input.periodo()]  \n            caracteristicas = cargar_caracteristicas(place) \n            absortancia = Absortancia[input.absortancia()]  \n            surface_tilt = location[input.ubicacion()] \n            surface_azimuth = orientacion[input.orientacion()]  \n\n            data = data_frame(\n                ruta_epw,\n                caracteristicas['lat'],\n                caracteristicas['lon'],\n                caracteristicas['alt'],\n                mes,\n                absortancia,\n                surface_tilt,\n                surface_azimuth,\n                timezone\n            )\n        \n            data_= data[::3600].reset_index() \n            csv_buffer = StringIO()\n            data_.to_csv(csv_buffer,index=True)\n            csv_buffer.seek(0)\n            \n        await asyncio.sleep(0.25)\n        yield csv_buffer.read()",
+    "crumbs": [
+      "Funciones del server"
+    ]
+  },
+  {
+    "objectID": "docs/server.html#función-para-mostrar-la-documentación",
+    "href": "docs/server.html#función-para-mostrar-la-documentación",
+    "title": "Funciones para las iteracciones",
+    "section": "",
+    "text": "@output\n    @render.ui\n    def documentacion():\n        return respiratory_diseases_app()",
+    "crumbs": [
+      "Funciones del server"
+    ]
+  },
+  {
+    "objectID": "docs/server.html#declaraciones-finales",
+    "href": "docs/server.html#declaraciones-finales",
+    "title": "Funciones para las iteracciones",
+    "section": "",
+    "text": "app = App(app_ui, server)\n\nif __name__ == \"__main__\":\n    app.run()",
+    "crumbs": [
+      "Funciones del server"
+    ]
+  },
+  {
+    "objectID": "docs/archivos.html#arcivos-epw",
+    "href": "docs/archivos.html#arcivos-epw",
+    "title": "Archivos generados",
+    "section": "",
+    "text": "Estos archivos contienen los datos que serán usados para poder calcular y generar las simulaciones correctamente, ya que contienen datos meteorológicos que se utilizan comúnmente en simulaciones energéticas y de rendimiento ambiental,para modelar las condiciones climáticas de un sitio específico.\nEjemplo de archivos EPW:",
+    "crumbs": [
+      "Archivos creados"
+    ]
+  },
+  {
+    "objectID": "docs/bd.html#insertar-el-conteo-en-la-bd",
+    "href": "docs/bd.html#insertar-el-conteo-en-la-bd",
+    "title": "Configuración de la base de datos",
+    "section": "",
+    "text": "Esta función fue creada para generar la inserción de cada simulación que se genere en la base de datos. Principalmente se creó para el usuario administrador, puesto que es almacenada cada simulación que se tenga anual, mensual y por condición (“con aire acondicionado & Sin aire acondicionado”).\ndef insert_db(type, condition, bd):\n    if bd is False:\n        print(\"La ejecución de la base de datos se apagó\")\n    else:\n        connection = mysql.connector.connect(**db_config)\n        cursor = connection.cursor()\n        query = \"\"\"\n        INSERT INTO simulations (id_num, date_count, type_simulation, type_conditional)\n        VALUES (%s, %s, %s, %s);\n        \"\"\"\n        params = (0, date_time.date(), type, condition)\n        cursor.execute(query, params)\n        connection.commit()\n        cursor.close()\n        connection.close()",
+    "crumbs": [
+      "Base de datos"
     ]
   }
 ]

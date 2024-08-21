@@ -41,9 +41,9 @@ website:
           href: docs/diccionaries.qmd
         - text: "Archivos creados"
           href: docs/archivos.qmd
-        - text: "Funciones"
+        - text: "Funciones generales"
           href: docs/funciones.qmd
-        - text: "Funciones para renderizar"
+        - text: "Funciones del server"
           href: docs/server.qmd
         - text: "Base de datos"
           href: docs/bd.qmd

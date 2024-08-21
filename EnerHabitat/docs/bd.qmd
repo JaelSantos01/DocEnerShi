@@ -1,5 +1,39 @@
 ---
-    pagetitle: Creacion para la base de datos
+    pagetitle: Creación para la base de datos
 ---
 
-# Base de datos para el conteo de simulaciones
+# Configuración de la base de datos
+Los datos que se contiene en la función, cambian en relación a la configuración que se genere al descargar MySQl, puesto que puede contener o no una contraseña e incluso puede ser diferente. 
+En relación a dicha función es esencial y es la principal para poder hacer inserciones a la base de datos. 
+
+````markdown
+db_config = {
+    'user': 'root',
+    'password': 'root',
+    'host': 'localhost',
+    'database': 'enerhabitat',
+    'port': 3306
+}
+````
+
+## Insertar el conteo en la **BD**
+Esta función fue creada para generar la inserción de cada simulación que se genere en la base de datos.
+Principalmente se creó para el usuario administrador, puesto que es almacenada cada simulación que se tenga anual, mensual y por condición ("con aire acondicionado & Sin aire acondicionado").
+
+````markdown
+def insert_db(type, condition, bd):
+    if bd is False:
+        print("La ejecución de la base de datos se apagó")
+    else:
+        connection = mysql.connector.connect(**db_config)
+        cursor = connection.cursor()
+        query = """
+        INSERT INTO simulations (id_num, date_count, type_simulation, type_conditional)
+        VALUES (%s, %s, %s, %s);
+        """
+        params = (0, date_time.date(), type, condition)
+        cursor.execute(query, params)
+        connection.commit()
+        cursor.close()
+        connection.close()
+````

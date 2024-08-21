@@ -10,7 +10,6 @@ la herramienta de Shiny con un enfoque para Python para la elaboración de funci
 interfaz. 
 
 ![](/images/ubuntu.png){.ubuntu-image fig-alt="Ubuntu"}
-![](/images/shiny.png){.shiny-image fig-alt="Shiny"}
 
 Brevemente se describirá la herramienta que se utilizó:
 
@@ -23,3 +22,5 @@ Una aplicación Shiny enfocada en Python es “una página web interactiva (ui) 
 de Python en vivo ejecutada por un servidor”, esto permite que los usuarios pueden manipular la interfaz 
 de manera que el servidor actualice las pantallas del usuario mediante la ejecución de código Python, 
 (CC BY SA Posit Software, 2024).
+
+![](/images/shiny.png){.shiny-image fig-alt="Shiny"}
