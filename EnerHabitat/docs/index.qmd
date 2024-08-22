@@ -23,4 +23,6 @@ de Python en vivo ejecutada por un servidor”, esto permite que los usuarios pu
 de manera que el servidor actualice las pantallas del usuario mediante la ejecución de código Python, 
 (CC BY SA Posit Software, 2024).
 
-![](/images/shiny.png){.shiny-image fig-alt="Shiny"}
+::: {.image-container}
+  ![](/images/shiny.png){.shiny-image fig-alt="Shiny"}
+:::

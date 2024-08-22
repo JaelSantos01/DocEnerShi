@@ -79,15 +79,15 @@ app_ui = ui.page_sidebar(
 ),        
 ````
 ## Parte 3 
-Para comenzar con la parte de la interfaz, donde se visualizará un panel por cada sección de los gráficos, tablas, etc. 
-Se declaró un ui.navset_card_underline, para dividir cada seccion con paneles (nav.panel), los cuales contendran diferentes secciones de informacion visible para el usuario como: la grafica de temperatura, la segunda grafica de radiacion, los resultados, el DataFrame junto con el boton de descarga y por ultimo el panel de la documentacion.
+Para comenzar con la parte de la interfaz, donde se visualizará un panel por cada sección de los graficos, tablas, etc. 
+Se declaró un ui.navset_card_underline, para dividir cada seccion con paneles (nav.panel), los cuales contendrán diferentes secciones de información visible para el usuario como: la gráfica de **temperatura**, la segunda gráfica de **radiación**, los **resultados**, el **DataFrame** junto con el **botón de descarga** y por último el panel de la **documentación**.
 
 ::: {.callout-note appearance="simple"}
 [Ejemplo de uso ui.navset_card_underline:](https://shiny.posit.co/py/api/core/ui.navset_card_underline.html#)
 :::
 
 ````markdown
-## Parte de la interfaz, que renderiza cada seccion 
+## Parte de la interfaz, que renderiza cada sección 
 ## de panel con el nombre "Datos Graficados"
 from Shiny import App, ui, render, reactive 
 
@@ -108,10 +108,10 @@ app_ui = ui.page_sidebar(
     fillable=True,
 ),        
 ````
-Donde la parte inferior contiene la declaracion y ubicacion del archivo css para el tipo de estilo que contiene la interfaz, al igual que permitimos con "fillable = True" que el usuario ingrese o edite datos en ese campo.
+Donde la parte inferior contiene la declaración y ubicación del archivo css para el tipo de estilo que contiene la interfaz, al igual que permitimos con "fillable = True" que el usuario ingrese o edite datos en ese campo.
 
 ## Parte Final
-Para terminar con el desarrollo de la interfaz, se genero un div para indicar que el titulo de la interfaz seria "Renovacion de Ener-Habitat" e indicandole que junto con el titulo se anadiria una imagen que redireccionara a dicha documentacion.
+Para terminar con el desarrollo de la interfaz, se generó un div para indicar que el título de la interfaz seria "Renovacion de Ener-Habitat" e indicandole que junto con el título se anadiria una imagen que redireccionara a la presente documentación.
 
 ````markdown
 ## Parte final de la interfaz

@@ -1,5 +1,6 @@
 ---
     pagetitle: Archivos creados
+    css: /CSS/inicio.css
 ---
 
 # Archivos generados

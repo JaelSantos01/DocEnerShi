@@ -21,6 +21,8 @@ def cargar_caracteristicas(lugar):
 ````
 
 ## Función para obtener la ruta del archivo epw
+La siguiente función se creó para obtener la ruta del archivo EPW, que contiene cada lugar. 
+Está función extrae del archivo luagres.ini, la característica "f_epw" la ruta del EPW, para que al momento de que el usuario seleccione el lugar se extraíga el EPW correcto del lugar en específico. 
 
 ````markdown
 def ruta(lugar):
@@ -37,6 +39,8 @@ def ruta(lugar):
 ````
 
 ## Función para generar los inputs de "controls_left"
+La función que se muestra a continuación es para crear los inputs del apartado "Cambios", con los cuales el usuario podrá interactuar con ellos para simular en base a sus necesidades. 
+Validando que tipo de sistema constructivo el usuario desea realizar ("Homogéno o No homogéneo").
 
 ````markdown
 def controls_left(type,lugares,meses_dict, location, orientacion,absortance):
@@ -68,7 +72,8 @@ def controls_left(type,lugares,meses_dict, location, orientacion,absortance):
 ````
 
 ## Función para ocultar la orientación
-dependiendo la ubicacion
+Esta función se generó para que al momento de validar la ubicación la orientación se mostrará o se ocultará. 
+Al igual que se manda a llamar una nueva función "absortancia_f".
 
 ````markdown
 def orientacion_disable(ubicacion,  orientacion, absortance):
@@ -89,6 +94,7 @@ def orientacion_disable(ubicacion,  orientacion, absortance):
 ````
 
 ## Función para colocar el valor de Absortancia
+Esta función genera un input numérico para que al momento de que la Abosortancia se muestre, el valor predeterminado por tipo de material así como la opción de seleccionar de Absortancia en caso de que no se tenga en la lista mostrada. 
 
 ````markdown
 def absortance_value(value):
@@ -99,6 +105,7 @@ def absortance_value(value):
 ````
 
 ## Función para generar los inputs de "top_controls"
+Esta función muestra nuevos inputs para la sección de acordeón "Selección", en base al tipo de sistema constructivo. 
 
 ````markdown
 def top_controls(type):
@@ -117,6 +124,8 @@ def top_controls(type):
 ````
 
 ## Función para generar los inputs de "rigth_controls"
+La siguiente función al igual que las anteriores, en base al tipo de sistema, se crean nuevas funciones o nuevos inputs. 
+Para el tipo de sistema con capa homogénea, renderiza a una nueva función llamada "campos" y para el tipo de sistema sin capa homogéna (aún en desarrollo), se generan una lista de inputs.
 
 ````markdown
 def rigth_controls(type, materiales):
@@ -147,6 +156,12 @@ def rigth_controls(type, materiales):
 ````
 
 ## Función para generar el número de sistemas 
+En esta función se genera la cantidad máx. de 5 sistemas constructivos, al momento de que el usuario ponga un número no válido de sistemas, se le mostrará un modal de error, donde le indique que solo se le permiten de 1 a 5 sistemas. 
+Y si el usuario ingresa una cantidad correcta, entonces la función le genera el número que haya seleccionado, en una sección de acordeón nueva para cada sistema, donde contendrá un input numérico para seleccionar la cantidad de capas por sistema.
+
+::: {.callout-note appearance="simple"}
+Se 5 listas para generar la sección de acordeón por sistema (SC1,SC2,SC3,SC4,SC5)
+:::
 
 ````markdown
 def f_sistemas(num):
@@ -158,7 +173,7 @@ def f_sistemas(num):
         ui.modal_show(modal)
         return
     else:
-        num1 = ui.TagList(
+        SC1 = ui.TagList(
             ui.accordion(
                 ui.accordion_panel(
                     "Sistema constructivo 1:",
@@ -169,19 +184,24 @@ def f_sistemas(num):
             )
         )
         if num == 1:
-            return num1
+            return SC1
         elif num == 2:
-            return num1 + num2
+            return SC1 + SC2
         elif num == 3:
-            return num1 + num2 + num3
+            return SC1 + SC2 + SC3
         elif num == 4:
-            return num1 + num2 + num3 + num4
+            return SC1 + SC2 + SC3 + SC4
         elif num == 5:
-            return num1 + num2 + num3 + num4 + num5
+            return SC1 + SC2 + SC3 + SC4 + SC5
 ````
 
 
 ## Función para generar el número de capas por sistema
+Esta función genera la cantidad de capas por sistema que el usuario haya registrado en el input de la función anterior, validando el limíte del número de capas, al igual que la función anterior si el usuario ingresa un número no válido, entonces se mostrará un modal de error indicandole que ingrese el número correcto. 
+
+::: {.callout-note appearance="simple"}
+Se generaron 5 funciones para cada sistema, teniendo la misma información solo cambiando el id de los inputs.
+:::
 
 ````markdown
 def info_capa1(capa, materiales, sistemas):
@@ -274,3 +294,7 @@ def plot_T_TI(dia):
     fig.update_yaxes(title_text="Temperatura [°C]", row=1, col=1)
     return fig
 ````
+
+::: {.callout-note appearance="simple"}
+Tomando en cuenta que todas las función descritas anteriormente, es necesario que se rendericen en el server del sistema.
+:::

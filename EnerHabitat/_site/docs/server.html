@@ -131,7 +131,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
-    <a href="https://github.com/AltamarMx" title="Learn Python" class="quarto-navigation-tool px-1" aria-label="Learn Python"><i class="bi bi-github"></i></a>
+    <a href="https://altamarmx.github.io/blog/2022/cursoPython/" title="Learn Python" class="quarto-navigation-tool px-1" aria-label="Learn Python"><i class="bi bi-github"></i></a>
 </div>
       </div> <!-- /container-fluid -->
     </nav>
@@ -244,11 +244,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="función-del-modal-de-presentación" class="level2">
 <h2 class="anchored" data-anchor-id="función-del-modal-de-presentación">Función del modal de presentación</h2>
-<p>La función que se muestra a continuación es llamada para ser mostrado al comienzo del sistema,</p>
+<p>La función que se muestra a continuación es llamada para ser mostrado al comienzo del sistema, la cual visualizará un modal de inicio, dependiendo si está en True o en False. Si la función está en <strong>False</strong>, entonces el modal de inicio no se mostrará, más si está en <strong>True</strong> entonces lo podremos visualizar.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="in">    present_news(False)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="función-para-contar-las-simulaciones" class="level2">
 <h2 class="anchored" data-anchor-id="función-para-contar-las-simulaciones">Función para contar las simulaciones</h2>
+<p>Esta función tiene un evento al momento de que el botón “update”, se seleccione. El evento que realiza esta función es que obtenga el número de veces que se dió clic al botón para poder hacer un conteo de las simulaciones realizadas, donde la función de inserción a la base de datos es llamada, al igual que el tipo de sistema que el usuario seleccionó y la condición (“Con aire acondicionado &amp; Sin aire acondicionado”).</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="in">    @reactive.effect</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="in">    @reactive.event(input.update)</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="in">    def increment():</span></span>
@@ -259,33 +260,37 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="función-para-generar-la-línea-ti" class="level2">
 <h2 class="anchored" data-anchor-id="función-para-generar-la-línea-ti">Función para generar la línea Ti</h2>
-<div class="sourceCode" id="cb4"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="in">    @reactive.effect</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="in">    def _():</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="in">        req(input.update())</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="in">        place = input.place()</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="in">        ruta_epw = ruta(place)</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="in">        mes = meses_dict[input.periodo()]</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="in">        caracteristicas = cargar_caracteristicas(place)</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="in">        absortancia = input.absortancia_value()</span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="in">        surface_tilt = location[input.ubicacion()]</span></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="in">        surface_azimuth = orientacion[input.orientacion()]</span></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="in">        </span></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="in">        dia = btn_run(</span></span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="in">            ruta_epw,</span></span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="in">            caracteristicas['lat'],</span></span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="in">            caracteristicas['lon'],</span></span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="in">            caracteristicas['alt'],</span></span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="in">            mes,</span></span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="in">            absortancia,</span></span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="in">            surface_tilt,</span></span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="in">            surface_azimuth,</span></span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="in">            timezone  </span></span>
-<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a><span class="in">        )</span></span>
-<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a><span class="in">        </span></span>
-<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a><span class="in">        reactive_data.set(dia)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>La función generá un nuevo data para agregar la línea Ti, al momento de que el botón sea presionado. Para que se generé el nuevo data, se necesita obtener el valor de las variables que se muestran en la función.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>reactive_data = reactive.Value(pd.DataFrame(columns=<span class="co">[</span><span class="ot">'Fecha_Hora'</span><span class="co">]</span>))</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="in">    @reactive.effect</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="in">    def _():</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="in">        req(input.update())</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="in">        place = input.place()</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="in">        ruta_epw = ruta(place)</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="in">        mes = meses_dict[input.periodo()]</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="in">        caracteristicas = cargar_caracteristicas(place)</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="in">        absortancia = input.absortancia_value()</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="in">        surface_tilt = location[input.ubicacion()]</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="in">        surface_azimuth = orientacion[input.orientacion()]</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="in">        </span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="in">        dia = btn_run(</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="in">            ruta_epw,</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="in">            caracteristicas['lat'],</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="in">            caracteristicas['lon'],</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="in">            caracteristicas['alt'],</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="in">            mes,</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="in">            absortancia,</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="in">            surface_tilt,</span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a><span class="in">            surface_azimuth,</span></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a><span class="in">            timezone  </span></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a><span class="in">        )</span></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a><span class="in">        </span></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a><span class="in">        reactive_data.set(dia)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="función-para-visualizar-left_controls" class="level2">
 <h2 class="anchored" data-anchor-id="función-para-visualizar-left_controls">Función para visualizar “left_controls”</h2>
+<p>Esta función renderiza y/o retorna a otra función que en este caso tiene por nombre “controls_left”, a la cual se le da el tipo de sistema, lugar, mes, ubicación, orientación y la absortancia que el usuario seleccione, para poder agregar los inputs correspodientes a la validación de la función renderizada.</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="in">    @output</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="in">    @render.ui</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="in">    def left_controls():</span></span>
@@ -299,6 +304,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="función-para-visualizar-ubicacion_orientacion" class="level2">
 <h2 class="anchored" data-anchor-id="función-para-visualizar-ubicacion_orientacion">Función para visualizar “ubicacion_orientacion”</h2>
+<p>Esta función renderiza la función que dependiendoo a la ubicación seleccionada por el usuario, la orientación será mostrada u ocultada.</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="in">    @output</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="in">    @render.ui</span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="in">    def ubicacion_orientacion():</span></span>
@@ -308,6 +314,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="función-para-visualizar-el-valor-de-la-abosrtancia" class="level2">
 <h2 class="anchored" data-anchor-id="función-para-visualizar-el-valor-de-la-abosrtancia">Función para visualizar el valor de la Abosrtancia</h2>
+<p>Al igual que lo anterior, la siguiente función renderiza (visualiza) la abortancia seleccionada por el usuario para ser visualizado el valor de la misma en el input numérico que se creó.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="in">    @output</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="in">    @render.ui</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="in">    def absortancia_f():</span></span>
@@ -317,6 +324,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="función-para-visualizar-controls_top" class="level2">
 <h2 class="anchored" data-anchor-id="función-para-visualizar-controls_top">Función para visualizar “controls_top”</h2>
+<p>Esta función retorna la función que genera la sección “Selección”</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="in">    @output</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="in">    @render.ui</span></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="in">    def controls_top():</span></span>
@@ -325,6 +333,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="función-para-visualizar-controls_rigth" class="level2">
 <h2 class="anchored" data-anchor-id="función-para-visualizar-controls_rigth">Función para visualizar “controls_rigth”</h2>
+<p>La siguiente función muestra al usuario la sección “Datos”, donde depende al tipo de sistema se genera la sección con inputs.</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="in">    @output</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="in">    @render.ui</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="in">    def controls_rigth():</span></span>
@@ -333,6 +342,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="función-para-visualizar-campos" class="level2">
 <h2 class="anchored" data-anchor-id="función-para-visualizar-campos">Función para visualizar “campos”</h2>
+<p>Al igual que lo anterior, dependiendo al numero de sistemas que el usuario seleccione entonces la función llamada es la que genera los sistemas con el input para determinar la cantidad de capas.</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="in">    @output</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="in">    @render.ui</span></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="in">    def campos():</span></span>
@@ -341,6 +351,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="función-para-visualizar-el-numero-de-capas" class="level2">
 <h2 class="anchored" data-anchor-id="función-para-visualizar-el-numero-de-capas">Función para visualizar el numero de capas</h2>
+<p>Esta función complementa lo anterior, que es mandar a llamar a la función “info_capa#” para generar las capas ingresadas por el usuario,</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="in">    @output</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="in">    @render.ui</span></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="in">    def num_capas1():</span></span>
@@ -350,6 +361,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="función-para-visualizar-la-gráfica-temperatura" class="level2">
 <h2 class="anchored" data-anchor-id="función-para-visualizar-la-gráfica-temperatura">Función para visualizar la gráfica “Temperatura”</h2>
+<p>La siguiente función visualiza la gráfica “Temperatura”, donde se obtienen los datos necesarios para poder generar el gráfico, haciendo el cálculo correcto.</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="in">    @output</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="in">    @render_plotly</span></span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="in">    def temperatura():</span></span>
@@ -394,6 +406,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="función-para-visualizar-la-gráfica-radiación" class="level2">
 <h2 class="anchored" data-anchor-id="función-para-visualizar-la-gráfica-radiación">Función para visualizar la gráfica “Radiación”</h2>
+<p>Esta función visualiza la gráfica “Radiación” generada en la función “plot_I”, la cual contiene parametros para poder generar los cálculos correctos para la elaboración de la misma, dependiendo los datos que el usuario ingrese.</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="in">    @output</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="in">    @render_plotly</span></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="in">    def radiacion():</span></span>
@@ -422,6 +435,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="función-para-visualizar-los-resultados" class="level2">
 <h2 class="anchored" data-anchor-id="función-para-visualizar-los-resultados">Función para visualizar los resultados</h2>
+<p>Esta función muestra el valor de cada elemento que el usuario interectuará, esto con el motivo de conocer que el todo estaba funcionando correctamente.</p>
+<div class="callout callout-style-simple callout-note">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Esta función aún esta en desarrollo, no es la final.</p>
+</div>
+</div>
+</div>
 <div class="sourceCode" id="cb14"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="in">    @output</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="in">    @render.text</span></span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="in">    def resultados():</span></span>
@@ -443,6 +467,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="función-para-visualizar-el-dataframe" class="level2">
 <h2 class="anchored" data-anchor-id="función-para-visualizar-el-dataframe">Función para visualizar el DataFrame</h2>
+<p>Esta función muestra los datos que contiene el DataFrame en una tabla, dependiendo de si el usuario da clic al botón, entonces los datos + la línea Ti graficada se mostrará, pero si el botón no es seleccionado, entonces se mostrará el DataFrame que se uso para graficar “Temperatura &amp; Radiación”. Insertando una columna para index, donde me diga la fecha junto con la hora.</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="in">    @output</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="in">    @render.data_frame</span></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="in">    def get_day_data():</span></span>
@@ -478,6 +503,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="función-para-la-descarga-del-dataframe" class="level2">
 <h2 class="anchored" data-anchor-id="función-para-la-descarga-del-dataframe">Función para la descarga del DataFrame</h2>
+<p>Esta función permité que al momento de que el usuario da clic al botón de descarga que está en la sección de “Datos”, donde se muestra el DataFrame, los datos que se contienen se descargarán en CSV, al igual que si se agrega la línea Ti.</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="in">    @render.download(</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="in">        filename=lambda: f"data-{date.today().isoformat()}.csv"</span></span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="in">    )</span></span>
@@ -520,6 +546,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="función-para-mostrar-la-documentación" class="level2">
 <h2 class="anchored" data-anchor-id="función-para-mostrar-la-documentación">Función para mostrar la documentación</h2>
+<p>Función que visualiza la documentación realizada en HTMLTools. Misma que será modificada para que contenga la documentación del uso del sistema.</p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="in">    @output</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="in">    @render.ui</span></span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="in">    def documentacion():</span></span>
@@ -527,6 +554,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="declaraciones-finales" class="level2">
 <h2 class="anchored" data-anchor-id="declaraciones-finales">Declaraciones finales</h2>
+<p>Las siguientes líneas deben declararse para crear y ejecutar la aplicación web.</p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>app = App(app_ui, server)</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>if __name__ == "__main__":</span>
@@ -973,7 +1001,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">
-<p>Derechos de autor . 2024 Documentacion de Ener-Habitat. Todos los derechos reservados</p>
+<p>Derechos de autor . 2024 Documentación de Ener-Habitat</p>
 </div>   
     <div class="nav-footer-center">
       &nbsp;

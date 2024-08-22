@@ -5,14 +5,13 @@ website:
   title: "Doc de Ener-Habitat"
   image: "images/enerhabitat.jpg"
   favicon: "images/logo_edited.png"
-  repo-url: https://github.com/AltamarMx
   page-navigation: true
   search: 
     show-item-context: true
     type: overlay
   page-footer: 
     left: |
-      Derechos de autor . 2024 Documentacion de Ener-Habitat. Todos los derechos reservados
+      Derechos de autor . 2024 Documentación de Ener-Habitat
   navbar:
     background: light
     logo: images/enerhabitat.jpg
@@ -24,7 +23,7 @@ website:
         href: index.qmd
     tools:
       - icon: github
-        href:  https://github.com/AltamarMx
+        href:  https://altamarmx.github.io/blog/2022/cursoPython/
         text: Learn Python
     
   sidebar: 

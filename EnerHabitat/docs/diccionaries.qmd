@@ -7,10 +7,10 @@ Un diccionario en Python es una estructura de datos que permite almacenar pares 
 
 ![](/images/diccionarios.JPG){.ejedicci-image fig-alt="ejemplo de un diccionario"}
 
-A continuacion se mostraran la lista de diccionarios que se crearon para la funcionalidad del sistema: 
+A continuación se mostrarán la lista de diccionarios que se crearon para la funcionalidad del sistema: 
 
 ## Diccionario para seleccionar el Mes
-Este diccionario se genero para mostrar al usuario la lista de los meses y a la vez obtener su valor para generar los graficos dependiendo el mes que se seleccione.
+Este diccionario se generó para mostrar al usuario la lista de los meses y a la vez obtener su valor para generar los graficos dependiendo el mes que se seleccione.
 
 ````markdown
 meses_dict = {
@@ -28,14 +28,14 @@ meses_dict = {
     "Diciembre": "12",
 }
 ````
-A continuacion se muestra su uso en el sistema: 
+A continuación se muestra su uso en el sistema: 
 
 <video autoplay muted playsinline loop width='600px;'>
 <source src="/images/mes.webm" type="video/webm"/>
 </video>
 
 ## Diccionario para la Absortancia
-Al igual que el diccionario anterior, su funcionalidad es que el texto (clave), se mostrara al usuario para que este pudiera seleccionar la absortancia de su preferencia para realizar el calculo en base al valor que contenga. 
+Al igual que el diccionario anterior, su funcionalidad es que el texto (clave), se mostrará al usuario para que este pudiera seleccionar la absortancia de su preferencia para realizar el cálculo en base al valor que contenga. 
 
 ````markdown
 Absortancia = {
@@ -62,7 +62,7 @@ Absortancia = {
 }
 ````
 
-A continuacion se muestra su uso en el sistema: 
+A continuación se muestra su uso en el sistema: 
 
 <video autoplay muted playsinline loop width='600px;'>
 <source src="/images/absor.webm" type="video/webm"/>
@@ -70,7 +70,7 @@ A continuacion se muestra su uso en el sistema:
 
 
 ## Diccionarios ubicacion, orientacion y tipo de sistema
-Por ultimo se crearon los diccionarios correspondientes a la ubicacion del sistema constructivo, orientacion del mismo y el tipo de sistema a analizar. 
+Por último se crearon los diccionarios correspondientes a la ubicación del sistema constructivo, orientación del mismo y el tipo de sistema a analizar. 
 
 ````markdown
 location={
@@ -95,7 +95,7 @@ type_sistem = {
 }
 ````
 
-A continuacion se muestra su uso en el sistema: 
+A continuación se muestra su uso en el sistema: 
 
 <video autoplay muted playsinline loop width='600px;'>
 <source src="/images/lotip.webm" type="video/webm"/>

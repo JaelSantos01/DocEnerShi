@@ -104,6 +104,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }</script>
 
 
+<link rel="stylesheet" href="../CSS/inicio.css">
 </head>
 
 <body class="nav-sidebar floating nav-fixed">
@@ -130,7 +131,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
-    <a href="https://github.com/AltamarMx" title="Learn Python" class="quarto-navigation-tool px-1" aria-label="Learn Python"><i class="bi bi-github"></i></a>
+    <a href="https://altamarmx.github.io/blog/2022/cursoPython/" title="Learn Python" class="quarto-navigation-tool px-1" aria-label="Learn Python"><i class="bi bi-github"></i></a>
 </div>
       </div> <!-- /container-fluid -->
     </nav>
@@ -205,8 +206,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#configuración-de-la-base-de-datos" id="toc-configuración-de-la-base-de-datos" class="nav-link active" data-scroll-target="#configuración-de-la-base-de-datos">Configuración de la base de datos</a>
   <ul class="collapse">
-  <li><a href="#insertar-el-conteo-en-la-bd" id="toc-insertar-el-conteo-en-la-bd" class="nav-link" data-scroll-target="#insertar-el-conteo-en-la-bd">Insertar el conteo en la <strong>BD</strong></a></li>
+  <li><a href="#insertar-el-conteo-en-la-base-de-datos" id="toc-insertar-el-conteo-en-la-base-de-datos" class="nav-link" data-scroll-target="#insertar-el-conteo-en-la-base-de-datos">Insertar el conteo en la Base de Datos</a></li>
   </ul></li>
+  <li><a href="#introducción-a-mysql" id="toc-introducción-a-mysql" class="nav-link" data-scroll-target="#introducción-a-mysql">Introducción a MySQL</a>
+  <ul class="collapse">
+  <li><a href="#instalación-de-mysql-en-linux" id="toc-instalación-de-mysql-en-linux" class="nav-link" data-scroll-target="#instalación-de-mysql-en-linux">Instalación de MySQL en Linux</a></li>
+  <li><a href="#acceder-a-mysql-desde-la-terminal" id="toc-acceder-a-mysql-desde-la-terminal" class="nav-link" data-scroll-target="#acceder-a-mysql-desde-la-terminal">Acceder a MySQL desde la terminal</a></li>
+  <li><a href="#instalación-de-worbeench" id="toc-instalación-de-worbeench" class="nav-link" data-scroll-target="#instalación-de-worbeench">Instalación de Worbeench</a></li>
+  <li><a href="#configuración-para-mysql" id="toc-configuración-para-mysql" class="nav-link" data-scroll-target="#configuración-para-mysql">Configuración para MySQL</a></li>
+  </ul></li>
+  <li><a href="#listo-mysql-ya-está-lista-para-ser-usada-d" id="toc-listo-mysql-ya-está-lista-para-ser-usada-d" class="nav-link" data-scroll-target="#listo-mysql-ya-está-lista-para-ser-usada-d">Listo!! MySQL ya está lista para ser usada :D</a></li>
   </ul>
 </nav>
     </div>
@@ -226,8 +235,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    'database': 'enerhabitat',</span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    'port': 3306</span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<section id="insertar-el-conteo-en-la-bd" class="level2">
-<h2 class="anchored" data-anchor-id="insertar-el-conteo-en-la-bd">Insertar el conteo en la <strong>BD</strong></h2>
+<section id="insertar-el-conteo-en-la-base-de-datos" class="level2">
+<h2 class="anchored" data-anchor-id="insertar-el-conteo-en-la-base-de-datos">Insertar el conteo en la Base de Datos</h2>
 <p>Esta función fue creada para generar la inserción de cada simulación que se genere en la base de datos. Principalmente se creó para el usuario administrador, puesto que es almacenada cada simulación que se tenga anual, mensual y por condición (“con aire acondicionado &amp; Sin aire acondicionado”).</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>def insert_db(type, condition, bd):</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    if bd is False:</span>
@@ -236,17 +245,101 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>        connection = mysql.connector.connect(**db_config)</span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>        cursor = connection.cursor()</span>
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>        query = """</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>        INSERT INTO simulations (id_num, date_count, type_simulation, type_conditional)</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>        VALUES (%s, %s, %s, %s);</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>        """</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>        params = (0, date_time.date(), type, condition)</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>        cursor.execute(query, params)</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>        connection.commit()</span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>        cursor.close()</span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>        connection.close()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-
-
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>        INSERT INTO simulations (id_num, date_count, type_simulation, </span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>        type_conditional)</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>        VALUES (%s, %s, %s, %s);</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>        """</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>        params = (0, date_time.date(), type, condition)</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>        cursor.execute(query, params)</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>        connection.commit()</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>        cursor.close()</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>        connection.close()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
+</section>
+<section id="introducción-a-mysql" class="level1">
+<h1>Introducción a MySQL</h1>
+<p>A continuación se explicará la instalación de MySQL, para crear y tener la base de datos, almacenando el conteo de simulaciones que se generen.</p>
+<section id="instalación-de-mysql-en-linux" class="level2">
+<h2 class="anchored" data-anchor-id="instalación-de-mysql-en-linux">Instalación de MySQL en Linux</h2>
+<p>Abre una nueva terminal, e ingresar lo siguiente:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">## Comando para instalar mysql</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>sudo apt-get install mysql-server</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">## comando para verificar la instalación</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>mysql --version</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="acceder-a-mysql-desde-la-terminal" class="level2">
+<h2 class="anchored" data-anchor-id="acceder-a-mysql-desde-la-terminal">Acceder a MySQL desde la terminal</h2>
+<div class="sourceCode" id="cb4"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">## Entramos al super usuario</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>sudo su</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">## Ingresar a MySQL</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>mysql -u root -p</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Como al instalar MySQL no se colocó una contraseña, no se coloca nada cuando pide la contraseña, solo debes darle enter y podrás entrar.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">## Actualizar para poder descargar</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>apt update</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>apt upgrade</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="instalación-de-worbeench" class="level2">
+<h2 class="anchored" data-anchor-id="instalación-de-worbeench">Instalación de Worbeench</h2>
+<p>Para eso debemos buscar a “Ubuntu software”, la tienda de aplicaciones. Y buscamos “workbeench” para descargar MySQL Workbeench Community e instalamos.</p>
+<p>Una vez instalado, debemos ingresar en la parte de “Permisos”, para darle permiso de leer, agregar, cambiar, o remover contraseñas.</p>
+<p><img src="..\images/workbeench.png" class="work-image img-fluid" alt="Worbeench"></p>
+<p>Una vez instalado, volvemos a la terminal en modo super usuario:</p>
+</section>
+<section id="configuración-para-mysql" class="level2">
+<h2 class="anchored" data-anchor-id="configuración-para-mysql">Configuración para MySQL</h2>
+<p>La contraseña y/o usuario puede ser cambiado a elección, sin embargo tanto como el usuario y la contraseña, no deben ser olvidadas y estas deben ser colocadas en la parte de configuración de la base de datos.</p>
+<p><strong>usuario</strong> = root <strong>servidor</strong> = localhost <strong>password</strong> = 123456</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">## Ingresamos a MySQL</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>mysql -u root -p </span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">## Creamos el usuario root y su respectiva contraseña</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '123456';</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Al momento de realizar lo anterior, para usar MySQL desde Workbeench la aplicación anterior de Workbeench se abre y se coloca la contraseña que se creó desde la terminal</p>
+<div class="callout callout-style-simple callout-note">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><a href="https://github.com/alexroel/tutoriales/blob/master/instalar-mysql.md">Tutorial</a></p>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="listo-mysql-ya-está-lista-para-ser-usada-d" class="level1">
+<h1>Listo!! MySQL ya está lista para ser usada :D</h1>
+<p>En este caso para que la base de datos se cree, es necesario seguir los siguiente pasos:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">## Comando para crear una base de datos</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>create database enerhabitat;</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="fu">## Comando para usar la base de datos creada</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>use enerhabitat;</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="fu">## Comnado crear la tabla para almacenar las simulaciones</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>create table simulations (</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    id_num integer primary key auto_increment not null, </span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    date_count date not null, </span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    type_simulation varchar(75) not null,</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    type_conditional varchar (75) not null </span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>);</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="fu">## Comando para visualizar la tabla completa</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>select * from simulations;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout callout-style-simple callout-note">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>La instalación de Workbeench es opcional, ya que solo es una interfaz gráfica mejorada para poder acceder a mysql.</p>
+</div>
+</div>
+</div>
+
+
 </section>
 
 </main> <!-- /main -->
@@ -683,7 +776,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">
-<p>Derechos de autor . 2024 Documentacion de Ener-Habitat. Todos los derechos reservados</p>
+<p>Derechos de autor . 2024 Documentación de Ener-Habitat</p>
 </div>   
     <div class="nav-footer-center">
       &nbsp;
